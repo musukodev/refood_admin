@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah Kategori Produk Baru - ReFood</title>
+    <link rel="stylesheet" href="./app.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar Component -->
+        <refood-sidebar></refood-sidebar>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="topbar">
+                <div class="date-display">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span id="currentDate">Kamis, 20 September 2026</span>
+                </div>
+                <div class="topbar-right">
+                    <div class="avatar-top">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                </div>
+            </header>
+
+            <div class="tambah-kat-container">
+                <div class="tambah-kat-header">
+                    <h1>Tambah Kategori Produk Baru</h1>
+                    <p>Tambahkan klasifikasi kategori baru untuk produk di aplikasi ReFood.</p>
+                </div>
+
+                <!-- Bagian 1: Informasi Kategori Produk -->
+                <div class="kat-form-card">
+                    <div class="kat-card-head">
+                        <div class="kat-head-left">
+                            <div class="icon-sq-green">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#2E7D32" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                            </div>
+                            <div>
+                                <h3>1. Informasi Kategori Produk</h3>
+                                <p>Nama resmi dan deskripsi cakupan produk surplus</p>
+                            </div>
+                        </div>
+                        <span class="badge-pill-gray">Wajib Diisi</span>
+                    </div>
+
+                    <div class="form-group-custom mt-4">
+                        <label>Nama Kategori Produk <span class="required">*</span></label>
+                        <div class="input-icon-box">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#757575" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path></svg>
+                            <input type="text" id="addKatName" value="Katering & Prasmanan Surplus" placeholder="Masukkan nama kategori...">
+                        </div>
+                        <span class="input-subnote">Gunakan nama yang jelas dan mudah dipahami oleh pembeli dan donor makanan.</span>
+                    </div>
+
+                    <div class="form-group-custom mt-4">
+                        <label>Deskripsi Kategori <span class="required">*</span></label>
+                        <textarea id="addKatDesc" rows="4" placeholder="Tuliskan deskripsi kategori...">Makanan matang higienis porsi besar dari acara pesta, katering hotel, seminar, dan prasmanan resto yang masih layak konsumsi dalam jendela waktu < 6 jam pasca-penyajian.</textarea>
+                        <div class="desc-footer-row">
+                            <span class="input-subnote">Rekomendasi: sebutkan karakteristik produk dan batas waktu kelayakan.</span>
+                            <span class="char-count" id="addCharCount">168 / 300 karakter</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bagian 2: Pengaturan Ikon Kategori -->
+                <div class="kat-form-card mt-4">
+                    <div class="kat-card-head">
+                        <div class="kat-head-left">
+                            <div class="icon-sq-orange">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D84315" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 10 10 0 0 0 0-20z"></path></svg>
+                            </div>
+                            <div>
+                                <h3>2. Pengaturan Ikon Kategori</h3>
+                                <p>Pilih simbol pangan atau unggah lambang kustom untuk identitas kategori</p>
+                            </div>
+                        </div>
+                        <span class="badge-pill-light-orange">Visual UI</span>
+                    </div>
+
+                    <div class="icon-selection-area mt-4">
+                        <div class="icon-selection-head">
+                            <label>Pilih Simbol Ikon Pangan</label>
+                            <a href="#" class="link-custom">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                                Unggah SVG Kustom
+                            </a>
+                        </div>
+
+                        <div class="symbols-grid" id="addSymbolsGrid">
+                            <div class="symbol-card" data-sym="resto">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                                <span>Resto</span>
+                            </div>
+                            <div class="symbol-card active" data-sym="bento">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"></rect><line x1="3" y1="12" x2="21" y2="12"></line><line x1="12" y1="3" x2="12" y2="12"></line></svg>
+                                <span>Bento</span>
+                            </div>
+                            <div class="symbol-card" data-sym="roti">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M3 15c0-4 4.5-9 9-9s9 5 9 9M3 15h18"></path></svg>
+                                <span>Roti</span>
+                            </div>
+                            <div class="symbol-card" data-sym="kuah">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21a9 9 0 0 0 9-9H3a9 9 0 0 0 9 9Z"></path><path d="M7 8V4"></path><path d="M12 8V4"></path><path d="M17 8V4"></path></svg>
+                                <span>Kuah</span>
+                            </div>
+                            <div class="symbol-card" data-sym="kopi">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path></svg>
+                                <span>Kopi</span>
+                            </div>
+                            <div class="symbol-card" data-sym="sayur">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="14" r="7"></circle><path d="M12 7v7"></path><path d="M12 7c-2-3-4-2-4-2s.5 2 2 3"></path><path d="M12 7c2-3 4-2 4-2s-.5 2-2 3"></path></svg>
+                                <span>Sayur</span>
+                            </div>
+                            <div class="symbol-card" data-sym="burger">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 11h16a1 1 0 0 0 1-1 7 7 0 0 0-14 0 1 1 0 0 0 1 1Z"></path><path d="M4 15h16"></path><path d="M4 19h16a1 1 0 0 1 1 1 3 3 0 0 1-3 3H6a3 3 0 0 1-3-3 1 1 0 0 1 1-1Z"></path></svg>
+                                <span>Burger</span>
+                            </div>
+                            <div class="symbol-card" data-sym="kompos">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="7 2 17 2 17 7"></polyline><path d="M21 16a9 9 0 0 1-9 9 9 9 0 0 1-9-9 9 9 0 0 1 9-9h5"></path></svg>
+                                <span>Kompos</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Footer Action Buttons -->
+                <div class="tambah-actions-row">
+                    <a href="./kategori.html" class="btn-batal-tambah">Batalkan</a>
+                    <button class="btn-publish-tambah" onclick="submitTambahKategori()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        Simpan & Terbitkan Kategori
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segera Hadir - ReFood</title>
+    <link rel="stylesheet" href="./app.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <refood-sidebar></refood-sidebar>
+
+        <!-- Main Content -->
+        <main class="main-content" style="display:flex; align-items:center; justify-content:center; height:100vh; text-align:center;">
+            <div>
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E97755" stroke-width="2" style="margin-bottom:20px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <h1 style="font-size:24px; color:var(--text-dark); margin-bottom:10px;">Halaman Segera Hadir</h1>
+                <p style="color:var(--text-gray);">Fitur ini sedang dalam tahap pengembangan.</p>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Make the current page active in sidebar
+        const path = window.location.pathname;
+        const links = document.querySelectorAll('.nav-item');
+        links.forEach(link => {
+            if(link.getAttribute('href') === path) {
+                link.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>

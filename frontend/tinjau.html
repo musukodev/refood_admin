@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tinjau Dokumen - ReFood</title>
+    <link rel="stylesheet" href="./app.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout">
+        <!-- Sidebar -->
+        <refood-sidebar></refood-sidebar>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Topbar (Specific for this page) -->
+            <header class="topbar-tinjau">
+                <a href="/verifikasi" class="back-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    Tinjau Dokumen Toko
+                </a>
+                <div class="avatar-top">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+            </header>
+
+            <div class="tinjau-container">
+                <!-- Header Card -->
+                <div class="card header-card">
+                    <div class="header-title-row">
+                        <h2>Artisan Bakery</h2>
+                        <span class="badge-outline">F&B SURPLUS</span>
+                    </div>
+                    <div class="header-meta-row">
+                        <span class="meta-item text-green">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                            ID: MITRA-2026-089
+                        </span>
+                        <span class="meta-item">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            Masuk: Hari ini, 09:42 WIB
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Data Identitas -->
+                <div class="card section-card">
+                    <h3 class="section-title">Data Identitas</h3>
+                    
+                    <div class="form-group-display">
+                        <div class="display-label-row">
+                            <label>FOTO KTP PEMILIK</label>
+                            <span class="file-format">Format: JPG | Terverifikasi</span>
+                        </div>
+                        <div class="image-box">
+                            <img src="https://images.unsplash.com/photo-1621839673705-6617adf9e890?q=80&w=800&auto=format&fit=crop" alt="KTP Placeholder">
+                            <div class="image-overlay">
+                                <span class="file-name">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                    KTP_SriWahyuni_Final.jpg
+                                </span>
+                                <button class="btn-perbesar" onclick="openLightbox('https://images.unsplash.com/photo-1621839673705-6617adf9e890?q=80&w=800&auto=format&fit=crop')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                    Perbesar Foto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group-display bg-light">
+                        <label>NOMOR INDUK KEPENDUDUKAN (NIK)</label>
+                        <div class="display-value">2171015509820004</div>
+                    </div>
+
+                    <div class="form-group-display bg-light">
+                        <label>NAMA LENGKAP (SESUAI KTP)</label>
+                        <div class="display-value">Sri Wahyuni</div>
+                    </div>
+
+                    <div class="form-group-display bg-light">
+                        <label>ALAMAT DOMISILI KTP</label>
+                        <div class="display-value">Jl. Engku Putri No. 12, RT 02 / RW 05, Batam Kota, Kepulauan Riau</div>
+                    </div>
+
+                    <div class="form-group-display mt-4">
+                        <div class="display-label-row">
+                            <label>DOKUMEN NPWP TOKO / PRIBADI</label>
+                            <span class="file-format">Format: PNG</span>
+                        </div>
+                        <div class="image-box">
+                            <img src="https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=800&auto=format&fit=crop" alt="NPWP Placeholder">
+                            <div class="image-overlay">
+                                <span class="file-name">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                    NPWP_WarungBuSri.png
+                                </span>
+                                <button class="btn-perbesar" onclick="openLightbox('https://images.unsplash.com/photo-1614728263952-84ea256f9679?q=80&w=800&auto=format&fit=crop')">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
+                                    Perbesar Foto
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group-display bg-light">
+                        <label>NOMOR NPWP</label>
+                        <div class="display-value">2171015509820004</div>
+                    </div>
+                </div>
+
+                <!-- Lokasi & Toko Fisik -->
+                <div class="card section-card">
+                    <div class="section-title-row">
+                        <h3 class="section-title mb-0">Lokasi & Toko Fisik</h3>
+                        <span class="badge-light-green">Koordinat Valid</span>
+                    </div>
+
+                    <div class="form-group-display mt-4">
+                        <div class="display-label-row">
+                            <label>DOKUMENTASI GERAI & PLANG</label>
+                            <span class="file-format">Plang Jelas</span>
+                        </div>
+                        <div class="image-box">
+                            <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?q=80&w=800&auto=format&fit=crop" alt="Store Front Placeholder">
+                            <div class="overlay-center">WARUNG BU SRI</div>
+                            <div class="image-overlay-top">
+                                <span class="badge-dark">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+                                    Foto Plang Nama Toko
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group-display mt-4">
+                        <div class="display-label-row">
+                            <label>PETA TITIK PENJEMPUTAN GPS</label>
+                            <span class="text-green-small">✓ Akurasi Tinggi</span>
+                        </div>
+                        <div class="image-box">
+                            <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?q=80&w=800&auto=format&fit=crop" alt="Map Placeholder">
+                            <div class="overlay-center-map">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="#D32F2F" stroke="white" stroke-width="1"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3" fill="white"></circle></svg>
+                            </div>
+                            <div class="image-overlay-bottom-center">
+                                <span class="badge-white">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#386E55" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                                    GPS & Pin Peta Sinkron
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group-display bg-light mt-3">
+                        <label>ALAMAT PENGAMBILAN</label>
+                        <div class="display-value">Ruko Mega Batam Center Blok B No. 4, Jl. Raja Isa, Batam Kota</div>
+                    </div>
+
+                    <div class="info-box-green mt-3">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                        <p>Pastikan nama pemilik pada kartu identitas (KTP & NPWP) dan lokasi gerai fisik sesuai dengan titik koordinat terdaftar sebelum memberikan persetujuan lencana resmi mitra.</p>
+                    </div>
+                </div>
+                
+                <!-- Bottom Action Bar -->
+                <div class="action-bar">
+                    <button class="btn-outline-red" onclick="openRejectModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line></svg>
+                        Tolak
+                    </button>
+                    <button class="btn-solid-green" onclick="openApproveModal()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        Setujui Toko Ini
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <!-- Approve Modal -->
+    <div class="modal-overlay" id="approveModal">
+        <div class="modal-content">
+            <div class="modal-icon green-bg">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            </div>
+            <h3>Verifikasi Toko?</h3>
+            <p>Anda yakin ingin menyetujui dan memberikan lencana resmi ReFood kepada <strong>Artisan Bakery</strong>?</p>
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" onclick="closeModals()">Batal</button>
+                <button class="btn-modal-confirm green" onclick="confirmAction('approve')">Ya, Setujui</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lightbox for Image Zoom -->
+    <div class="lightbox-overlay" id="lightboxOverlay" onclick="closeLightbox()">
+        <img src="" alt="Zoomed Image" id="lightboxImage">
+    </div>
+
+    <script src="./app.js"></script>
+</body>
+</html>
