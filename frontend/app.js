@@ -8,8 +8,8 @@ class RefoodSidebar extends HTMLElement {
         const isVerifikasi = currentPath === '/verifikasi' || currentPath === '/tinjau' || currentPath.endsWith('verifikasi.html') || currentPath.endsWith('tinjau.html');
         const isPengguna = currentPath === '/pengguna' || currentPath.endsWith('pengguna.html');
         const isKategori = currentPath === '/kategori' || currentPath.endsWith('kategori.html') || currentPath === '/tambah-kategori' || currentPath.endsWith('tambah-kategori.html');
-        const isPelaporan = currentPath === '/pelaporan' || currentPath.endsWith('pelaporan.html');
-        const isPengaturan = currentPath === '/pengaturan' || currentPath.endsWith('pengaturan.html');
+        const isPelaporan = currentPath === '/pelaporan' || currentPath.endsWith('pelaporan.html') || currentPath === '/laporan' || currentPath.endsWith('laporan.html') || currentPath === '/detail-laporan';
+        const isPengaturan = currentPath === '/pengaturan' || currentPath.endsWith('pengaturan.html') || currentPath === '/akun' || currentPath.endsWith('akun.html');
 
         // Deteksi apakah sedang dibuka lewat server Golang (http://localhost:8080) atau double-click file lokal (file://)
         const isFileProtocol = window.location.protocol === 'file:';
@@ -18,8 +18,8 @@ class RefoodSidebar extends HTMLElement {
         const linkVerifikasi = isFileProtocol ? './verifikasi.html' : '/verifikasi';
         const linkPengguna = isFileProtocol ? './pengguna.html' : '/pengguna';
         const linkKategori = isFileProtocol ? './kategori.html' : '/kategori';
-        const linkPelaporan = isFileProtocol ? './coming-soon.html' : '/pelaporan';
-        const linkPengaturan = isFileProtocol ? './coming-soon.html' : '/pengaturan';
+        const linkPelaporan = isFileProtocol ? './laporan.html' : '/laporan';
+        const linkPengaturan = isFileProtocol ? './akun.html' : '/akun';
         const linkLogout = isFileProtocol ? './index.html' : '/';
 
         this.innerHTML = `
@@ -61,19 +61,46 @@ class RefoodSidebar extends HTMLElement {
                     </a>
                 </nav>
 
-                <div class="user-profile">
+                    <div class="user-profile">
                     <div class="profile-info">
                         <div class="avatar-small">
                             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                         </div>
-                        <span>Budi Santoso</span>
+                        <span>Admin</span>
                     </div>
-                    <a href="${linkLogout}" class="logout-btn" title="Keluar">
+                    <button type="button" class="logout-btn" title="Keluar" aria-label="Keluar" onclick="openLogoutModal()">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                    </a>
+                    </button>
                 </div>
             </aside>
         `;
+                // Simpan tujuan logout & buat modal konfirmasi (sekali saja per halaman)
+        window.REFOOD_LOGOUT_URL = linkLogout;
+
+        if (!document.getElementById('logoutModal')) {
+            const modal = document.createElement('div');
+            modal.className = 'dl-modal-overlay';
+            modal.id = 'logoutModal';
+            modal.innerHTML = `
+                <div class="dl-modal-card">
+                    <div class="dl-modal-icon-outer warn">
+                        <div class="dl-modal-icon-inner warn">
+                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                        </div>
+                    </div>
+                    <h3>Keluar dari Akun?</h3>
+                    <p>Anda akan keluar dari panel Admin ReFood dan perlu masuk kembali untuk mengakses halaman ini.</p>
+                    <div class="dl-modal-actions">
+                        <button type="button" class="dl-modal-btn-cancel" onclick="closeLogoutModal()">Batal</button>
+                        <button type="button" class="dl-modal-btn-confirm" onclick="confirmLogout()">Ya, Keluar</button>
+                    </div>
+                </div>
+            `;
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeLogoutModal();
+            });
+            document.body.appendChild(modal);
+        }
     }
 }
 customElements.define('refood-sidebar', RefoodSidebar);
@@ -179,6 +206,11 @@ document.addEventListener('DOMContentLoaded', () => {
     // 6. Logika Tambah Kategori Baru
     if (document.getElementById('addSymbolsGrid')) {
         initTambahKategori();
+    }
+
+    // 7. Logika Pelaporan
+    if (document.getElementById('laporanList')) {
+        initLaporan();
     }
 });
 
@@ -714,3 +746,252 @@ function submitTambahKategori() {
     alert(`Kategori "${name}" berhasil disimpan dan diterbitkan!`);
     window.location.href = window.location.protocol === 'file:' ? './kategori.html' : '/kategori';
 }
+
+// ==========================================================
+// LOGIKA HALAMAN PELAPORAN
+// ==========================================================
+let currentLaporanTab = 'semua';
+
+const laporanData = [
+    { pelapor: 'Rina Kartika', pelaporEmail: 'rina.k@gmail.com', pelaporInit: 'RK', pelaporColor: 'green', terlapor: 'Warung Sunda Asli', terlaporSub: 'Mitra Toko', terlaporColor: 'orange', jenis: 'Kualitas Makanan', jenisClass: 'makanan', tanggal: '16 Okt 2026, 14:30', status: 'baru' },
+    { pelapor: 'Budi Santoso', pelaporEmail: 'budi.s@gmail.com', pelaporInit: 'BS', pelaporColor: 'blue', terlapor: 'Kopi Pagi Senopati', terlaporSub: 'Mitra Toko', terlaporColor: 'purple', jenis: 'Layanan', jenisClass: 'layanan', tanggal: '16 Okt 2026, 11:20', status: 'baru' },
+    { pelapor: 'Siti Aminah', pelaporEmail: 'siti.a@gmail.com', pelaporInit: 'SA', pelaporColor: 'purple', terlapor: 'FreshMart Express', terlaporSub: 'Mitra Toko', terlaporColor: 'teal', jenis: 'Penipuan', jenisClass: 'penipuan', tanggal: '15 Okt 2026, 19:45', status: 'ditinjau' },
+    { pelapor: 'Ahmad Fauzi', pelaporEmail: 'ahmad.f@gmail.com', pelaporInit: 'AF', pelaporColor: 'teal', terlapor: 'Rotikita Bakery', terlaporSub: 'Mitra Toko', terlaporColor: 'red', jenis: 'Kebersihan', jenisClass: 'kebersihan', tanggal: '15 Okt 2026, 16:10', status: 'ditinjau' },
+    { pelapor: 'Dewi Lestari', pelaporEmail: 'dewi.l@gmail.com', pelaporInit: 'DL', pelaporColor: 'red', terlapor: 'Morning Bakery', terlaporSub: 'Mitra Toko', terlaporColor: 'green', jenis: 'Kualitas Makanan', jenisClass: 'makanan', tanggal: '15 Okt 2026, 10:05', status: 'baru' },
+    { pelapor: 'Rizky Hidayat', pelaporEmail: 'rizky.h@gmail.com', pelaporInit: 'RH', pelaporColor: 'orange', terlapor: 'Dapoer Nusantara', terlaporSub: 'Mitra Toko', terlaporColor: 'blue', jenis: 'Layanan', jenisClass: 'layanan', tanggal: '14 Okt 2026, 20:30', status: 'selesai' },
+    { pelapor: 'Nurul Hidayah', pelaporEmail: 'nurul.h@gmail.com', pelaporInit: 'NH', pelaporColor: 'green', terlapor: 'Segar Jaya Market', terlaporSub: 'Mitra Toko', terlaporColor: 'orange', jenis: 'Kualitas Makanan', jenisClass: 'makanan', tanggal: '14 Okt 2026, 15:20', status: 'selesai' },
+    { pelapor: 'Hendra Wijaya', pelaporEmail: 'hendra.w@gmail.com', pelaporInit: 'HW', pelaporColor: 'blue', terlapor: 'Teh Poci Corner', terlaporSub: 'Mitra Toko', terlaporColor: 'purple', jenis: 'Lainnya', jenisClass: 'lainnya', tanggal: '14 Okt 2026, 09:15', status: 'selesai' },
+    { pelapor: 'Putri Rahayu', pelaporEmail: 'putri.r@gmail.com', pelaporInit: 'PR', pelaporColor: 'purple', terlapor: 'Bakso Pak Kumis', terlaporSub: 'Mitra Toko', terlaporColor: 'teal', jenis: 'Kebersihan', jenisClass: 'kebersihan', tanggal: '13 Okt 2026, 18:45', status: 'selesai' },
+    { pelapor: 'Yoga Pratama', pelaporEmail: 'yoga.p@gmail.com', pelaporInit: 'YP', pelaporColor: 'teal', terlapor: 'Roti Bakar 88', terlaporSub: 'Mitra Toko', terlaporColor: 'red', jenis: 'Penipuan', jenisClass: 'penipuan', tanggal: '13 Okt 2026, 13:00', status: 'ditinjau' },
+    { pelapor: 'Lina Marlina', pelaporEmail: 'lina.m@gmail.com', pelaporInit: 'LM', pelaporColor: 'red', terlapor: 'Warung Betawi Asli', terlaporSub: 'Mitra Toko', terlaporColor: 'green', jenis: 'Layanan', jenisClass: 'layanan', tanggal: '12 Okt 2026, 17:30', status: 'selesai' },
+    { pelapor: 'Fajar Nugroho', pelaporEmail: 'fajar.n@gmail.com', pelaporInit: 'FN', pelaporColor: 'orange', terlapor: 'Kedai Kopi Nusantara', terlaporSub: 'Mitra Toko', terlaporColor: 'blue', jenis: 'Kualitas Makanan', jenisClass: 'makanan', tanggal: '12 Okt 2026, 08:50', status: 'selesai' }
+];
+
+function initLaporan() {
+    renderLaporanList();
+}
+
+function switchLaporanTab(tab, btn) {
+    currentLaporanTab = tab;
+    document.querySelectorAll('.laporan-page-container .tab-btn').forEach(t => t.classList.remove('active'));
+    btn.classList.add('active');
+
+    const countSemua = document.getElementById('countSemua');
+    const countButuh = document.getElementById('countButuh');
+    const countSelesai = document.getElementById('countSelesai');
+
+    if (tab === 'semua') {
+        countSemua.className = 'tab-badge green';
+        countButuh.className = 'tab-badge gray';
+        countSelesai.className = 'tab-badge gray';
+    } else if (tab === 'butuh') {
+        countSemua.className = 'tab-badge gray';
+        countButuh.className = 'tab-badge green';
+        countSelesai.className = 'tab-badge gray';
+    } else {
+        countSemua.className = 'tab-badge gray';
+        countButuh.className = 'tab-badge gray';
+        countSelesai.className = 'tab-badge green';
+    }
+
+    renderLaporanList();
+}
+
+function renderLaporanList() {
+    const listEl = document.getElementById('laporanList');
+    const paginationInfo = document.getElementById('laporanPaginationInfo');
+    if (!listEl) return;
+
+    let filtered = laporanData;
+    if (currentLaporanTab === 'butuh') {
+        filtered = laporanData.filter(l => l.status === 'baru' || l.status === 'ditinjau');
+    } else if (currentLaporanTab === 'selesai') {
+        filtered = laporanData.filter(l => l.status === 'selesai');
+    }
+
+    const tabLabel = currentLaporanTab === 'butuh' ? 'Butuh Tindakan' : currentLaporanTab === 'selesai' ? 'Selesai' : 'Semua Laporan';
+    if (paginationInfo) {
+        paginationInfo.innerHTML = `Menampilkan <b>${filtered.length}</b> dari <b>${filtered.length}</b> ${tabLabel}`;
+    }
+
+    listEl.innerHTML = '';
+
+    if (filtered.length === 0) {
+        listEl.innerHTML = `<div style="text-align:center; padding:40px; color:#757575;">Tidak ada data laporan.</div>`;
+        return;
+    }
+
+    const storeIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>`;
+
+    filtered.forEach(lap => {
+        const statusLabel = lap.status === 'baru' ? 'Baru' : lap.status === 'ditinjau' ? 'Ditinjau' : 'Selesai';
+        const html = `
+            <div class="table-row">
+                <div class="cell-lap-pelapor">
+                    <div class="lap-avatar ${lap.pelaporColor}">${lap.pelaporInit}</div>
+                    <div class="lap-user-text">
+                        <h4>${lap.pelapor}</h4>
+                        <p>${lap.pelaporEmail}</p>
+                    </div>
+                </div>
+                <div class="cell-lap-terlapor">
+                    <div class="lap-store-avatar ${lap.terlaporColor}">${storeIcon}</div>
+                    <div class="lap-user-text">
+                        <h4>${lap.terlapor}</h4>
+                        <p>${lap.terlaporSub}</p>
+                    </div>
+                </div>
+                <div class="cell-lap-jenis">
+                    <span class="jenis-badge ${lap.jenisClass}">${lap.jenis}</span>
+                </div>
+                <div class="cell-lap-tanggal">${lap.tanggal}</div>
+                <div class="cell-lap-status">
+                    <span class="lap-status-pill ${lap.status}">
+                        <span class="status-dot"></span> ${statusLabel}
+                    </span>
+                </div>
+            </div>
+        `;
+        listEl.insertAdjacentHTML('beforeend', html);
+    });
+}
+
+// ===== LOGOUT =====
+function openLogoutModal() {
+    const modal = document.getElementById('logoutModal');
+    if (modal) modal.classList.add('show');
+}
+
+function closeLogoutModal() {
+    const modal = document.getElementById('logoutModal');
+    if (modal) modal.classList.remove('show');
+}
+
+function confirmLogout() {
+    // Hapus token login, lalu kembali ke halaman login
+    localStorage.removeItem('refood_token');
+    // TODO: panggil API logout di sini jika backend menyediakannya
+    window.location.href = window.REFOOD_LOGOUT_URL || '/';
+}
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeLogoutModal();
+});
+
+// ===== MENU PROFIL (IKON PROFIL DI POJOK KANAN ATAS) =====
+function initProfileMenu() {
+    const triggers = document.querySelectorAll('.avatar-top');
+    if (!triggers.length) return;
+
+    const isFile = window.location.protocol === 'file:';
+    const linkAkun = isFile ? './akun.html' : '/akun';
+
+    // Data tampilan di menu (ganti sesuai data admin yang login)
+    const user = {
+        name: 'Admin',
+        email: 'budi.santoso@gmail.com',
+        role: 'Administrator'
+    };
+
+    const parts = user.name.trim().split(/\s+/);
+    const initials = (parts.length > 1
+        ? parts[0][0] + parts[parts.length - 1][0]
+        : user.name.slice(0, 2)).toUpperCase();
+
+    triggers.forEach((trigger) => {
+        // Bungkus ikon profil agar menu bisa diposisikan di bawahnya
+        const wrap = document.createElement('div');
+        wrap.className = 'profile-menu-wrap';
+        trigger.parentNode.insertBefore(wrap, trigger);
+        wrap.appendChild(trigger);
+
+        trigger.classList.add('avatar-top-btn');
+        trigger.setAttribute('role', 'button');
+        trigger.setAttribute('tabindex', '0');
+        trigger.setAttribute('aria-haspopup', 'true');
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.setAttribute('aria-label', 'Menu profil');
+
+        const menu = document.createElement('div');
+        menu.className = 'profile-menu';
+        menu.innerHTML = `
+            <div class="pm-head">
+                <div class="pm-avatar">${initials}</div>
+                <div class="pm-head-text">
+                    <div class="pm-name">${user.name}</div>
+                    <div class="pm-email">${user.email}</div>
+                    <span class="pm-role">
+                        <span class="pm-role-dot"></span>${user.role}
+                    </span>
+                </div>
+            </div>
+            <div class="pm-list">
+                <a href="${linkAkun}" class="pm-item">
+                    <span class="pm-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </span>
+                    <span class="pm-label">Profil Saya</span>
+                    <span class="pm-hint">Edit</span>
+                </a>
+            </div>
+            <div class="pm-list pm-list-bottom">
+                <button type="button" class="pm-item pm-item-danger" data-action="logout">
+                    <span class="pm-icon">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
+                    </span>
+                    <span class="pm-label">Keluar</span>
+                </button>
+            </div>
+        `;
+        wrap.appendChild(menu);
+
+        const setOpen = (open) => {
+            wrap.classList.toggle('open', open);
+            trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+        };
+
+        trigger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Tutup menu lain (kalau ada) lalu toggle yang ini
+            document.querySelectorAll('.profile-menu-wrap.open').forEach((w) => {
+                if (w !== wrap) w.classList.remove('open');
+            });
+            setOpen(!wrap.classList.contains('open'));
+        });
+
+        trigger.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                trigger.click();
+            }
+        });
+
+        menu.addEventListener('click', (e) => e.stopPropagation());
+
+        menu.querySelector('[data-action="logout"]').addEventListener('click', () => {
+            setOpen(false);
+            if (typeof openLogoutModal === 'function') openLogoutModal();
+        });
+    });
+
+    // Klik di luar menu / tekan Esc untuk menutup
+    document.addEventListener('click', () => {
+        document.querySelectorAll('.profile-menu-wrap.open').forEach((w) => {
+            w.classList.remove('open');
+            const t = w.querySelector('.avatar-top-btn');
+            if (t) t.setAttribute('aria-expanded', 'false');
+        });
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.profile-menu-wrap.open').forEach((w) => {
+                w.classList.remove('open');
+                const t = w.querySelector('.avatar-top-btn');
+                if (t) t.setAttribute('aria-expanded', 'false');
+            });
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', initProfileMenu);

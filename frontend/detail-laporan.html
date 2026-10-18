@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Laporan - ReFood</title>
+    <link rel="stylesheet" href="./app.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout">
+        <refood-sidebar></refood-sidebar>
+
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar-tinjau">
+                <a href="./laporan.html" class="back-link" id="backLink">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                    Detail Laporan
+                </a>
+                <div class="avatar-top">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </div>
+            </header>
+
+            <div class="dl-container">
+                <div class="dl-card">
+
+                    <!-- Terlapor -->
+                    <div class="dl-box">
+                        <div class="dl-row">
+                            <div class="dl-main">
+                                <div class="dl-label">
+                                    <span class="dl-icon-circle">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    </span>
+                                    TERLAPOR (YANG DILAPORKAN)
+                                </div>
+                                <div class="dl-name">
+                                    Siti Rahmawati
+                                    <span class="dl-pill-green">(KODE 2146)</span>
+                                </div>
+                            </div>
+                            <div class="dl-contact">
+                                <span>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                                    081267876655
+                                </span>
+                                <span class="dl-divider"></span>
+                                <span>
+                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                                    sitirahma@gmail.com
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pelapor -->
+                    <div class="dl-box">
+                        <div class="dl-row">
+                            <div class="dl-main">
+                                <div class="dl-label">
+                                    <span class="dl-icon-circle">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                                    </span>
+                                    PELAPOR
+                                </div>
+                                <div class="dl-name">
+                                    Holland Bakery
+                                    <span class="dl-pill-verified">
+                                        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                                        Mitra Terverifikasi
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="dl-product">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 15v4c0 1.1.9 2 2 2h14a2 2 0 0 0 2-2v-4M3 15c0-4 4.5-9 9-9s9 5 9 9M3 15h18"></path></svg>
+                                Roti Pisang Cokelat (1 Porsi)
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Waktu -->
+                    <div class="dl-box">
+                        <div class="dl-label">
+                            <span class="dl-icon-circle">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            </span>
+                            WAKTU DILAPORKAN
+                        </div>
+                        <div class="dl-time">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#386E55" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            25 Nov 2026, 20.00 WIB
+                        </div>
+                    </div>
+
+                    <!-- Deskripsi -->
+                    <div class="dl-box">
+                        <div class="dl-label">
+                            <span class="dl-icon-circle dark">
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.76-2.02-2-2H4c-1.25 0-2 .75-2 1.97V12c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .01-1 1v3zM15 21c3 0 7-1 7-8V5c0-1.25-.76-2.02-2-2h-4c-1.25 0-2 .75-2 1.97V12c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3z"></path></svg>
+                            </span>
+                            DESKRIPSI LAPORAN
+                        </div>
+                        <div class="dl-desc">
+                            "Pengklaim tidak kunjung hadir hingga batas waktu pengambilan selesai (20.00 WIB) dan chat WhatsApp tidak ada respons."
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="dl-actions">
+                    <button class="dl-btn-block" onclick="openBlokirModal()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"></line></svg>
+                        Blokir Akun
+                    </button>
+                </div>
+            </div>
+        </main>
+    </div>
+        <!-- Modal Blokir Akun -->
+    <div class="dl-modal-overlay" id="blokirModal" onclick="if(event.target===this) closeBlokirModal()">
+        <div class="dl-modal-card">
+            <div class="dl-modal-icon-outer">
+                <div class="dl-modal-icon-inner">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13" stroke="#8E2F17" stroke-width="2.2" stroke-linecap="round"></line><line x1="12" y1="17" x2="12.01" y2="17" stroke="#8E2F17" stroke-width="2.6" stroke-linecap="round"></line></svg>
+                </div>
+            </div>
+            <h3>Blokir Akun Ini?</h3>
+            <p>Akses akun ini akan dihentikan dan dikirim ke daftar blokir Admin. Admin dapat mengaktifkan kembali akun ini kapan saja.</p>
+            <div class="dl-modal-actions">
+                <button class="dl-modal-btn-cancel" onclick="closeBlokirModal()">Periksa Kembali</button>
+                <button class="dl-modal-btn-confirm" onclick="confirmBlokir()">Ya, Blokir</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Akun Berhasil Diblokir -->
+    <div class="dl-modal-overlay" id="suksesModal">
+        <div class="dl-modal-card">
+            <div class="dl-modal-icon-outer success">
+                <div class="dl-modal-icon-inner success">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                </div>
+            </div>
+            <h3>Akun Berhasil Diblokir</h3>
+            <p>Akun kini dalam status tidak aktif dan berada di daftar pengguna terblokir.</p>
+            <div class="dl-modal-actions">
+                <button class="dl-modal-btn-cancel full" onclick="kembaliKeBeranda()">Kembali ke Beranda</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./app.js"></script>
+    <script>
+        // Link kembali menyesuaikan mode file:// atau server
+        if (window.location.protocol !== 'file:') {
+            document.getElementById('backLink').setAttribute('href', '/laporan');
+        }
+
+        function openBlokirModal() {
+            document.getElementById('blokirModal').classList.add('show');
+        }
+
+        function closeBlokirModal() {
+            document.getElementById('blokirModal').classList.remove('show');
+        }
+
+        function confirmBlokir() {
+            // TODO: panggil API blokir akun di sini
+            closeBlokirModal();
+            document.getElementById('suksesModal').classList.add('show');
+        }
+
+        function kembaliKeBeranda() {
+            window.location.href = window.location.protocol === 'file:' ? './dashboard.html' : '/dashboard';
+        }
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') closeBlokirModal();
+        });
+    </script>
+</body>
+</html>

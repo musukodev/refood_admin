@@ -24,7 +24,8 @@ func main() {
 	r.StaticFile("/pengguna", "./frontend/pengguna.html")
 	r.StaticFile("/kategori", "./frontend/kategori.html")
 	r.StaticFile("/tambah-kategori", "./frontend/tambah-kategori.html")
-	r.StaticFile("/pelaporan", "./frontend/coming-soon.html")
+	r.StaticFile("/pelaporan", "./frontend/laporan.html")
+	r.StaticFile("/laporan", "./frontend/laporan.html")
 	r.StaticFile("/pengaturan", "./frontend/coming-soon.html")
 
 	// API route for login
