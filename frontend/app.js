@@ -23,7 +23,8 @@ class RefoodSidebar extends HTMLElement {
         const linkLogout = isFileProtocol ? './index.html' : '/';
 
         this.innerHTML = `
-            <aside class="sidebar">
+            <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleRefoodSidebar(false)"></div>
+            <aside class="sidebar" id="refoodSidebar">
                 <div class="sidebar-header">
                     <div class="logo-icon bg-white">
                         <img src="./assets/logo.jpg" alt="ReFood" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">
@@ -32,6 +33,9 @@ class RefoodSidebar extends HTMLElement {
                         <h2>ReFood</h2>
                         <p>Save Food, Share Good</p>
                     </div>
+                    <button type="button" class="sidebar-close-btn" aria-label="Tutup Menu" onclick="toggleRefoodSidebar(false)">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
                 </div>
 
                 <nav class="sidebar-nav">
@@ -74,7 +78,16 @@ class RefoodSidebar extends HTMLElement {
                 </div>
             </aside>
         `;
-                // Simpan tujuan logout & buat modal konfirmasi (sekali saja per halaman)
+                // Tutup drawer saat item menu diklik di perangkat mobile
+        this.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 1024) {
+                    toggleRefoodSidebar(false);
+                }
+            });
+        });
+
+        // Simpan tujuan logout & buat modal konfirmasi (sekali saja per halaman)
         window.REFOOD_LOGOUT_URL = linkLogout;
 
         if (!document.getElementById('logoutModal')) {
@@ -105,6 +118,55 @@ class RefoodSidebar extends HTMLElement {
 }
 customElements.define('refood-sidebar', RefoodSidebar);
 
+// Kontrol Drawer Navigasi Mobile
+function toggleRefoodSidebar(forceState) {
+    const sidebar = document.querySelector('.sidebar');
+    const backdrop = document.getElementById('sidebarBackdrop');
+    if (!sidebar) return;
+    const isOpen = typeof forceState === 'boolean' ? forceState : !sidebar.classList.contains('mobile-open');
+    if (isOpen) {
+        sidebar.classList.add('mobile-open');
+        if (backdrop) backdrop.classList.add('active');
+        document.body.classList.add('sidebar-locked');
+    } else {
+        sidebar.classList.remove('mobile-open');
+        if (backdrop) backdrop.classList.remove('active');
+        document.body.classList.remove('sidebar-locked');
+    }
+}
+window.toggleRefoodSidebar = toggleRefoodSidebar;
+
+// Otomatis Sisipkan Tombol Hamburger pada Topbar
+function initMobileNav() {
+    const topbars = document.querySelectorAll('.topbar, .topbar-tinjau');
+    topbars.forEach(topbar => {
+        if (!topbar.querySelector('.mobile-menu-btn')) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'mobile-menu-btn';
+            btn.setAttribute('aria-label', 'Buka Menu Navigasi');
+            btn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>`;
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                toggleRefoodSidebar(true);
+            });
+            topbar.insertBefore(btn, topbar.firstChild);
+        }
+    });
+}
+
+// Tutup drawer saat layar di-resize ke desktop atau tekan tombol Escape
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 1024) {
+        toggleRefoodSidebar(false);
+    }
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+        toggleRefoodSidebar(false);
+    }
+});
+
 // Global Function untuk Tanggal Topbar
 function initTopbarDate() {
     const currentDateEl = document.getElementById('currentDate');
@@ -117,6 +179,7 @@ function initTopbarDate() {
 // Inisialisasi Berdasarkan Halaman
 document.addEventListener('DOMContentLoaded', () => {
     initTopbarDate();
+    initMobileNav();
 
     // 1. Logika Halaman Login
     const loginForm = document.getElementById('loginForm');

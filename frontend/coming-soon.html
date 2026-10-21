@@ -13,26 +13,35 @@
         <refood-sidebar></refood-sidebar>
 
         <!-- Main Content -->
-        <main class="main-content" style="display:flex; align-items:center; justify-content:center; height:100vh; text-align:center;">
-            <div>
-                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#E97755" stroke-width="2" style="margin-bottom:20px;">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <polyline points="12 6 12 12 16 14"></polyline>
-                </svg>
-                <h1 style="font-size:24px; color:var(--text-dark); margin-bottom:10px;">Halaman Segera Hadir</h1>
-                <p style="color:var(--text-gray);">Fitur ini sedang dalam tahap pengembangan.</p>
+        <main class="main-content">
+            <!-- Topbar -->
+            <header class="topbar">
+                <div class="date-display">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    <span id="currentDate">Kamis, 20 September 2026</span>
+                </div>
+                <div class="topbar-right">
+                    <div class="avatar-top">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                    </div>
+                </div>
+            </header>
+
+            <div class="coming-soon-container">
+                <div class="coming-soon-card">
+                    <div class="coming-soon-icon">
+                        <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#E97755" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
+                    </div>
+                    <h1>Halaman Segera Hadir</h1>
+                    <p>Fitur ini sedang dalam tahap pengembangan dan akan segera tersedia untuk Anda.</p>
+                </div>
             </div>
         </main>
     </div>
-    <script>
-        // Make the current page active in sidebar
-        const path = window.location.pathname;
-        const links = document.querySelectorAll('.nav-item');
-        links.forEach(link => {
-            if(link.getAttribute('href') === path) {
-                link.classList.add('active');
-            }
-        });
-    </script>
+
+    <script src="./app.js"></script>
 </body>
 </html>

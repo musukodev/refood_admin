@@ -3780,3 +3780,733 @@ button.logout-btn:hover { color: var(--primary-orange); }
 .pm-item-danger { color: #C62828; }
 .pm-item-danger .pm-icon { background-color: #FFEBEE; }
 .pm-item-danger:hover { background-color: #FFF3F3; }
+
+/* ==========================================================
+   REFOOD RESPONSIVE DESIGN SYSTEM
+   - Mobile Drawer Navigation & Backdrop
+   - Fluid Grid & Stacking Controls
+   - Scrollable Table Containers
+   - Safe Spacing & Mobile Touch Targets
+========================================================== */
+
+/* Base Overflow & Touch Targets */
+html {
+    -webkit-text-size-adjust: 100%;
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+img, svg {
+    max-width: 100%;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    color: var(--text-dark);
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    transition: background-color 0.2s, color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mobile-menu-btn:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--primary-green);
+}
+
+.mobile-menu-btn svg {
+    display: block;
+}
+
+/* Sidebar Close Button */
+.sidebar-close-btn {
+    display: none;
+    margin-left: auto;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.sidebar-close-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Sidebar Backdrop Overlay */
+.sidebar-backdrop {
+    display: none;
+}
+
+/* Coming Soon Container */
+.coming-soon-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    min-height: calc(100vh - 120px);
+    text-align: center;
+}
+
+.coming-soon-card {
+    background-color: var(--white);
+    border-radius: 20px;
+    padding: 48px 36px;
+    max-width: 480px;
+    width: 100%;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+    border: 1px solid #F0F0F0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.coming-soon-icon {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    background-color: #FBE9E7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+
+.coming-soon-card h1 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+}
+
+.coming-soon-card p {
+    font-size: 14px;
+    color: var(--text-gray);
+    line-height: 1.6;
+}
+
+/* ==========================================================
+   BREAKPOINT: TABLET & LAPTOP KECIL (<= 1024px)
+========================================================== */
+@media (max-width: 1024px) {
+    /* Reset zoom khusus tablet dan mobile agar skala rem/em dan touch responsif */
+    body {
+        zoom: 1 !important;
+    }
+
+    refood-sidebar {
+        zoom: 1 !important;
+        width: 0 !important;
+    }
+
+    .layout {
+        position: relative;
+        min-height: 100vh;
+        width: 100%;
+    }
+
+    /* Transform Sidebar Menjadi Drawer Slide-Out */
+    .sidebar {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        bottom: 0 !important;
+        width: 280px !important;
+        max-width: 85vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100% !important;
+        z-index: 999 !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: none !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0) !important;
+        box-shadow: 8px 0 32px rgba(0, 0, 0, 0.28) !important;
+    }
+
+    .sidebar-close-btn {
+        display: inline-flex;
+    }
+
+    .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+        backdrop-filter: blur(2px);
+    }
+
+    .sidebar-backdrop.active {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    body.sidebar-locked {
+        overflow: hidden !important;
+    }
+
+    /* Main Content Full Width */
+    .main-content {
+        margin-left: 0 !important;
+        width: 100% !important;
+        min-width: 0 !important;
+    }
+
+    .mobile-menu-btn {
+        display: inline-flex;
+    }
+
+    /* Topbar Layout */
+    .topbar,
+    .topbar-tinjau {
+        padding: 16px 24px;
+        position: sticky;
+        top: 0;
+        z-index: 90;
+        background-color: var(--white);
+        box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+    }
+
+    /* Tinjau Fixed Bottom Bar */
+    .action-bar {
+        left: 0 !important;
+        padding: 14px 24px;
+    }
+
+    /* Page Containers Spacing */
+    .dashboard-container,
+    .verifikasi-page-container,
+    .pengguna-page-container,
+    .kategori-page-container,
+    .tambah-kat-container,
+    .laporan-page-container,
+    .dl-container,
+    .akun-container {
+        padding: 0 24px 36px 24px;
+    }
+
+    .tinjau-container {
+        padding: 24px 24px 100px 24px;
+    }
+
+    /* Dashboard Grid Stacking */
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+    }
+
+    .bottom-section {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
+/* ==========================================================
+   BREAKPOINT: TABLET POTRAIT & PHABLET (<= 768px)
+========================================================== */
+@media (max-width: 768px) {
+    /* Header Rows Flex Stacking */
+    .pengguna-header-row,
+    .kategori-header-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+    }
+
+    .btn-tambah-kategori {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .summary-card {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    /* Filter & Search Bar */
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 14px;
+    }
+
+    .search-box {
+        width: 100% !important;
+    }
+
+    .chip-group {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .chip {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    /* Tabel Scrollable Container (Mencegah Whole Page Scroll) */
+    .table-container {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    }
+
+    .table-container .table-header,
+    .table-container .table-body {
+        min-width: 620px;
+    }
+
+    .kategori-table-card {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: 16px;
+    }
+
+    .kategori-table-header,
+    .kategori-table-body {
+        min-width: 580px;
+    }
+
+    /* Verifikasi Toko Cards */
+    .store-card {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 16px;
+        padding: 18px 16px;
+    }
+
+    .store-info {
+        align-items: flex-start;
+        gap: 14px;
+    }
+
+    .store-image {
+        width: 56px;
+        height: 56px;
+    }
+
+    .store-details h3 {
+        font-size: 15px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .action-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px;
+    }
+
+    /* Tinjau Dokumen */
+    .header-meta-row {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .display-label-row {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .action-bar {
+        padding: 12px 16px;
+        justify-content: stretch;
+        gap: 12px;
+    }
+
+    .btn-outline-red,
+    .btn-solid-green {
+        flex: 1;
+        padding: 12px 14px;
+        font-size: 13px;
+        justify-content: center;
+        text-align: center;
+    }
+
+    /* Form Tambah Kategori */
+    .kat-form-card {
+        padding: 20px 16px;
+    }
+
+    .kat-card-head {
+        flex-direction: column;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .tambah-actions-row {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .btn-batal-tambah,
+    .btn-publish-tambah {
+        width: 100%;
+        justify-content: center;
+    }
+
+    /* Detail Laporan */
+    .dl-card {
+        padding: 24px 16px;
+        border-radius: 16px;
+    }
+
+    .dl-box {
+        padding: 18px 16px;
+        border-radius: 14px;
+    }
+
+    .dl-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .dl-name {
+        padding-left: 0;
+        font-size: 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    .dl-contact {
+        flex-wrap: wrap;
+        gap: 8px;
+        font-size: 13px;
+    }
+
+    .dl-divider {
+        display: none;
+    }
+
+    .dl-time {
+        padding-left: 0;
+        font-size: 15px;
+    }
+
+    .dl-desc {
+        margin: 8px 0 0 0;
+        padding: 14px;
+        font-size: 14px;
+        border-radius: 8px;
+    }
+
+    .dl-actions {
+        justify-content: stretch;
+    }
+
+    .dl-btn-block {
+        width: 100%;
+        height: 46px;
+    }
+
+    /* Akun & Pengaturan */
+    .akun-banner {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 24px 16px;
+        min-height: auto;
+        gap: 16px;
+    }
+
+    .akun-status {
+        position: static;
+        margin-bottom: 4px;
+    }
+
+    .akun-avatar {
+        width: 80px;
+        height: 80px;
+        font-size: 28px;
+        margin: 0 auto;
+    }
+
+    .akun-banner-info {
+        align-items: center;
+        text-align: center;
+        width: 100%;
+    }
+
+    .akun-name {
+        font-size: 22px;
+    }
+
+    .akun-badges {
+        justify-content: center;
+    }
+
+    .akun-meta {
+        justify-content: center;
+    }
+
+    .akun-btn-edit,
+    .akun-banner .akun-btn-edit {
+        position: static;
+        width: 100%;
+        justify-content: center;
+        margin-top: 8px;
+        height: 42px;
+    }
+
+    .akun-card {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .akun-row {
+        gap: 14px;
+        padding: 12px 0;
+    }
+
+    .akun-value {
+        word-break: break-all;
+    }
+
+    /* Halaman Login */
+    .main-container {
+        padding: 16px;
+    }
+
+    .login-card {
+        border-radius: 16px;
+        min-height: auto;
+    }
+
+    .card-left {
+        padding: 24px 20px;
+    }
+
+    .left-header {
+        margin-bottom: 20px;
+    }
+
+    .left-title {
+        font-size: 18px;
+        margin-bottom: 16px;
+    }
+
+    .image-placeholder {
+        height: 160px;
+    }
+
+    .card-right {
+        padding: 24px 20px;
+    }
+}
+
+/* ==========================================================
+   BREAKPOINT: SMARTPHONE STANDAR (<= 480px)
+========================================================== */
+@media (max-width: 480px) {
+    /* Topbar Compact */
+    .topbar,
+    .topbar-tinjau {
+        padding: 10px 14px;
+    }
+
+    .date-display svg {
+        display: none;
+    }
+
+    .date-display span {
+        font-size: 11px;
+    }
+
+    /* Page Spacing Mobile */
+    .dashboard-container,
+    .verifikasi-page-container,
+    .pengguna-page-container,
+    .kategori-page-container,
+    .tambah-kat-container,
+    .laporan-page-container,
+    .dl-container,
+    .akun-container {
+        padding: 0 14px 28px 14px;
+    }
+
+    .tinjau-container {
+        padding: 16px 14px 90px 14px;
+    }
+
+    /* Welcome Banner */
+    .welcome-banner {
+        padding: 20px 16px;
+        border-radius: 14px;
+    }
+
+    .welcome-banner h1 {
+        font-size: 20px;
+    }
+
+    .welcome-banner p {
+        font-size: 13px;
+    }
+
+    /* Stats Grid Single Column on Small Screen */
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    /* Chart Section */
+    .chart-section {
+        padding: 16px;
+    }
+
+    .chart-summary {
+        flex-direction: column;
+        gap: 14px;
+        padding: 12px 14px;
+    }
+
+    .chart-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .chart-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+    }
+
+    .chart-container {
+        height: 200px;
+    }
+
+    /* Partners Section */
+    .partners-section {
+        padding: 16px;
+    }
+
+    /* Modals Responsive */
+    .modal-content,
+    .dl-modal-card,
+    .modal-edit-box {
+        padding: 20px 16px;
+        max-width: calc(100vw - 24px);
+        margin: 0 12px;
+        border-radius: 16px;
+    }
+
+    .modal-actions,
+    .dl-modal-actions,
+    .edit-akun-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .modal-actions button,
+    .dl-modal-actions button,
+    .edit-akun-actions button {
+        width: 100%;
+        height: 44px;
+    }
+
+    /* Profile Dropdown Menu */
+    .profile-menu {
+        width: calc(100vw - 24px);
+        right: -8px;
+        border-radius: 14px;
+    }
+
+    /* Icon Symbols Grid */
+    .symbols-grid {
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .symbol-card {
+        min-width: 60px;
+        max-width: 72px;
+        height: 66px;
+    }
+
+    /* Login Top Header */
+    .top-header {
+        padding: 12px 16px;
+    }
+
+    .tagline {
+        display: none;
+    }
+
+    .logo-text {
+        font-size: 20px;
+    }
+}
+
+/* ==========================================================
+   BREAKPOINT: SMARTPHONE SANGAT KECIL (<= 340px)
+========================================================== */
+@media (max-width: 340px) {
+    .avatar-top {
+        width: 28px;
+        height: 28px;
+    }
+
+    .nav-item {
+        font-size: 13px;
+        padding: 10px 12px;
+    }
+
+    .stat-value h2 {
+        font-size: 24px;
+    }
+
+    .symbol-card {
+        min-width: 54px;
+        max-width: 64px;
+        height: 60px;
+    }
+
+    .display-value {
+        font-size: 13px;
+    }
+
+    .btn-outline-red,
+    .btn-solid-green {
+        font-size: 12px;
+        padding: 10px 8px;
+    }
+}
