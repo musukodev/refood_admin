@@ -17,6 +17,9 @@ func main() {
 
 	// Static files
 	r.Static("/static", "./frontend")
+	r.Static("/assets", "./frontend/assets")
+	r.StaticFile("/app.css", "./frontend/app.css")
+	r.StaticFile("/app.js", "./frontend/app.js")
 	r.StaticFile("/", "./frontend/index.html")
 	r.StaticFile("/dashboard", "./frontend/dashboard.html")
 	r.StaticFile("/verifikasi", "./frontend/verifikasi.html")
