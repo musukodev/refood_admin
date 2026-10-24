@@ -22,7 +22,10 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    zoom: 0.7;
+}
+
+body.login-page {
+    zoom: 1 !important;
 }
 
 /* Header */
