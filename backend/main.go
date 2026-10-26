@@ -3,9 +3,44 @@ package main
 import (
 	"log"
 	"net/http"
+	"os"
+	"path/filepath"
 
 	"github.com/gin-gonic/gin"
+
+	"refood-backend/config"
+	"refood-backend/payment"
 )
+
+// findFrontendDir mencari folder frontend, baik saat server dijalankan dari
+// dalam folder backend (go run main.go) maupun dari root project (go run ./backend).
+func findFrontendDir() string {
+	candidates := []string{
+		"./frontend",
+		"../frontend",
+	}
+	if exe, err := os.Executable(); err == nil {
+		exeDir := filepath.Dir(exe)
+		candidates = append(candidates,
+			filepath.Join(exeDir, "frontend"),
+			filepath.Join(exeDir, "..", "frontend"),
+		)
+	}
+
+	for _, dir := range candidates {
+		info, err := os.Stat(filepath.Join(dir, "index.html"))
+		if err == nil && !info.IsDir() {
+			abs, err := filepath.Abs(dir)
+			if err != nil {
+				return dir
+			}
+			return abs
+		}
+	}
+
+	log.Fatal("Folder frontend tidak ditemukan. Jalankan server dari folder backend atau root project.")
+	return ""
+}
 
 type LoginRequest struct {
 	Username string `json:"username" binding:"required"`
@@ -13,23 +48,50 @@ type LoginRequest struct {
 }
 
 func main() {
+	cfg := config.LoadConfig()
+
+	paymentStore := payment.NewStore()
+	paymentGateway := payment.NewGateway(cfg)
+	paymentHandler := payment.NewHandler(cfg, paymentStore, paymentGateway)
+
 	r := gin.Default()
 
+	frontendDir := findFrontendDir()
+	log.Println("Menyajikan frontend dari:", frontendDir)
+
 	// Static files
-	r.Static("/static", "./frontend")
-	r.Static("/assets", "./frontend/assets")
-	r.StaticFile("/app.css", "./frontend/app.css")
-	r.StaticFile("/app.js", "./frontend/app.js")
-	r.StaticFile("/", "./frontend/index.html")
-	r.StaticFile("/dashboard", "./frontend/dashboard.html")
-	r.StaticFile("/verifikasi", "./frontend/verifikasi.html")
-	r.StaticFile("/tinjau", "./frontend/tinjau.html")
-	r.StaticFile("/pengguna", "./frontend/pengguna.html")
-	r.StaticFile("/kategori", "./frontend/kategori.html")
-	r.StaticFile("/tambah-kategori", "./frontend/tambah-kategori.html")
-	r.StaticFile("/pelaporan", "./frontend/laporan.html")
-	r.StaticFile("/laporan", "./frontend/laporan.html")
-	r.StaticFile("/pengaturan", "./frontend/coming-soon.html")
+	r.Static("/static", frontendDir)
+	r.Static("/assets", filepath.Join(frontendDir, "assets"))
+	r.StaticFile("/app.css", filepath.Join(frontendDir, "app.css"))
+	r.StaticFile("/app.js", filepath.Join(frontendDir, "app.js"))
+	r.StaticFile("/landing.css", filepath.Join(frontendDir, "landing.css"))
+	r.StaticFile("/landing.js", filepath.Join(frontendDir, "landing.js"))
+	r.StaticFile("/pembayaran.css", filepath.Join(frontendDir, "pembayaran.css"))
+	r.StaticFile("/pembayaran.js", filepath.Join(frontendDir, "pembayaran.js"))
+
+	// Web Pages
+	r.StaticFile("/", filepath.Join(frontendDir, "index.html"))
+	r.StaticFile("/login", filepath.Join(frontendDir, "login.html"))
+	r.StaticFile("/pembayaran", filepath.Join(frontendDir, "pembayaran.html"))
+	r.StaticFile("/dashboard", filepath.Join(frontendDir, "dashboard.html"))
+	r.StaticFile("/verifikasi", filepath.Join(frontendDir, "verifikasi.html"))
+	r.StaticFile("/tinjau", filepath.Join(frontendDir, "tinjau.html"))
+	r.StaticFile("/pengguna", filepath.Join(frontendDir, "pengguna.html"))
+	r.StaticFile("/kategori", filepath.Join(frontendDir, "kategori.html"))
+	r.StaticFile("/tambah-kategori", filepath.Join(frontendDir, "tambah-kategori.html"))
+	r.StaticFile("/pelaporan", filepath.Join(frontendDir, "laporan.html"))
+	r.StaticFile("/laporan", filepath.Join(frontendDir, "laporan.html"))
+	r.StaticFile("/detail-laporan", filepath.Join(frontendDir, "detail-laporan.html"))
+	r.StaticFile("/akun", filepath.Join(frontendDir, "akun.html"))
+	r.StaticFile("/pengaturan", filepath.Join(frontendDir, "coming-soon.html"))
+
+	// Payment API routes (Simulasi & Integrasi Duitku)
+	r.GET("/api/foods", paymentHandler.HandleFoods)
+	r.POST("/api/checkout", paymentHandler.HandleCheckout)
+	r.GET("/api/checkout/status", paymentHandler.HandleStatus)
+	r.POST("/api/callback", paymentHandler.HandleCallback)
+	r.POST("/api/simulate-payment", paymentHandler.HandleSimulate)
+	r.GET("/api/payment-methods", paymentHandler.HandlePaymentMethods)
 
 	// API route for login
 	r.POST("/api/login", func(c *gin.Context) {
@@ -115,26 +177,26 @@ func main() {
 		menunggu := []gin.H{}
 		for i := 0; i < 3; i++ {
 			menunggu = append(menunggu, gin.H{
-				"id":        i + 1,
-				"name":      "Artisan Bakery",
-				"owner":     "Sri Wahyuni",
-				"location":  "Batam Center",
-				"time":      "Diajukan hari ini, 09:15 WIB",
-				"status":    "Menunggu",
-				"image":     "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=150&h=150&fit=crop",
+				"id":       i + 1,
+				"name":     "Artisan Bakery",
+				"owner":    "Sri Wahyuni",
+				"location": "Batam Center",
+				"time":     "Diajukan hari ini, 09:15 WIB",
+				"status":   "Menunggu",
+				"image":    "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=150&h=150&fit=crop",
 			})
 		}
 
 		terverifikasi := []gin.H{}
 		for i := 0; i < 6; i++ {
 			terverifikasi = append(terverifikasi, gin.H{
-				"id":        i + 101,
-				"name":      "Artisan Bakery",
-				"owner":     "Sri Wahyuni",
-				"location":  "Batam Center",
-				"time":      "Disetujui hari ini, 09:15 WIB",
-				"status":    "Terverifikasi",
-				"image":     "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=150&h=150&fit=crop",
+				"id":       i + 101,
+				"name":     "Artisan Bakery",
+				"owner":    "Sri Wahyuni",
+				"location": "Batam Center",
+				"time":     "Disetujui hari ini, 09:15 WIB",
+				"status":   "Terverifikasi",
+				"image":    "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=150&h=150&fit=crop",
 			})
 		}
 
@@ -148,59 +210,65 @@ func main() {
 	r.GET("/api/pengguna", func(c *gin.Context) {
 		// Mock data for all users
 		var semua []gin.H
-		
+
 		// 5 Toko Terverifikasi
 		for i := 0; i < 5; i++ {
 			semua = append(semua, gin.H{
-				"id":        i + 1,
-				"name":      "Morning Bakery",
-				"subtitle":  "Budi Santoso (Pemilik) • morningbakery@gmail.com",
-				"type":      "Usaha",
-				"location":  "Batam Center, Kepri",
-				"status":    "Aktif",
-				"avatar":    "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=150&h=150&fit=crop",
-				"isStore":   true,
+				"id":       i + 1,
+				"name":     "Morning Bakery",
+				"subtitle": "Budi Santoso (Pemilik) • morningbakery@gmail.com",
+				"type":     "Usaha",
+				"location": "Batam Center, Kepri",
+				"status":   "Aktif",
+				"avatar":   "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=150&h=150&fit=crop",
+				"isStore":  true,
 			})
 		}
 
 		// 5 Individu (Aktif)
 		for i := 5; i < 10; i++ {
 			semua = append(semua, gin.H{
-				"id":        i + 1,
-				"name":      "Budi Santoso",
-				"subtitle":  "budisantoso@gmail.com",
-				"type":      "Individu",
-				"location":  "Batam Center, Kepri",
-				"status":    "Aktif",
-				"avatar":    "BS",
-				"isStore":   false,
+				"id":       i + 1,
+				"name":     "Budi Santoso",
+				"subtitle": "budisantoso@gmail.com",
+				"type":     "Individu",
+				"location": "Batam Center, Kepri",
+				"status":   "Aktif",
+				"avatar":   "BS",
+				"isStore":  false,
 			})
 		}
-		
+
 		// 5 Individu (Diblokir)
 		for i := 10; i < 15; i++ {
 			semua = append(semua, gin.H{
-				"id":        i + 1,
-				"name":      "Budi Santoso",
-				"subtitle":  "budisantoso@gmail.com",
-				"type":      "Individu",
-				"location":  "Batam Center, Kepri",
-				"status":    "Diblokir",
-				"avatar":    "BS",
-				"isStore":   false,
+				"id":       i + 1,
+				"name":     "Budi Santoso",
+				"subtitle": "budisantoso@gmail.com",
+				"type":     "Individu",
+				"location": "Batam Center, Kepri",
+				"status":   "Diblokir",
+				"avatar":   "BS",
+				"isStore":  false,
 			})
 		}
 
 		c.JSON(http.StatusOK, gin.H{
-			"total": 1428,
-			"toko": 174,
+			"total":    1428,
+			"toko":     174,
 			"diblokir": 5,
-			"users": semua,
+			"users":    semua,
 		})
 	})
 
-	log.Println("Server backend berjalan di http://localhost:8080")
-	if err := r.Run(":8080"); err != nil {
+	log.Printf("======================================================")
+	log.Printf("🚀 Server ReFood aktif di %s (Port :%s)", cfg.BaseURL, cfg.Port)
+	log.Printf("💳 Merchant Code: %s | Environment: %s", cfg.MerchantCode, cfg.Environment)
+	log.Printf("🔗 Webhook Callback: %s", cfg.CallbackURL())
+	log.Printf("🧪 Mode Simulasi Bayar: %v", cfg.EnableSimulation)
+	log.Printf("======================================================")
+
+	if err := r.Run(":" + cfg.Port); err != nil {
 		log.Fatal("Gagal menjalankan server:", err)
 	}
 }

@@ -1,101 +1,522 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - ReFood</title>
-    <link rel="stylesheet" href="./app.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-</head>
-<body class="login-page">
-    <!-- Top Header -->
-    <header class="top-header">
-        <div class="logo-container">
-            <div class="logo-icon">
-                <img src="./assets/logo.jpg" alt="ReFood" style="width: 100%; height: 100%; object-fit: contain;">
-            </div>
-            <div class="logo-text">
-                <span class="logo-orange">Re</span><span class="logo-green">Food</span>
-            </div>
-            <span class="tagline">Don't waste it, ReFood it!</span>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <main class="main-container">
-        <div class="login-card">
-            <!-- Left Side (Green) -->
-            <div class="card-left">
-                <div class="left-header">
-                    <div class="logo-icon bg-white">
-                        <img src="./assets/logo.jpg" alt="ReFood" style="width: 100%; height: 100%; object-fit: contain; border-radius: 4px;">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ReFood - Selamatkan Makanan, Hemat Biaya & Kurangi Limbah</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+            rel="stylesheet"
+        />
+        <link rel="stylesheet" href="./landing.css" />
+    </head>
+    <body>
+        <!-- Navbar -->
+        <header class="landing-nav">
+            <div class="container nav-wrapper">
+                <a href="/" class="brand-link">
+                    <div class="brand-logo-box">
+                        <img src="./assets/logo.jpg" alt="Logo ReFood" />
                     </div>
-                    <div>
-                        <h2 class="left-logo-text">ReFood</h2>
-                        <p class="left-tagline">Don't waste it, ReFood it!</p>
+                    <div class="brand-text">
+                        <h1><span class="brand-orange">Re</span><span class="brand-green">Food</span></h1>
+                        <p>Don't waste it, ReFood it!</p>
+                    </div>
+                </a>
+
+                <nav>
+                    <ul class="nav-menu">
+                        <li><a href="#beranda" class="nav-link">Beranda</a></li>
+                        <li><a href="#makanan" class="nav-link">Pilihan Makanan</a></li>
+                        <li><a href="#cara-kerja" class="nav-link">Cara Kerja</a></li>
+                        <li><a href="#dampak" class="nav-link">Dampak</a></li>
+                    </ul>
+                </nav>
+
+                <div class="nav-actions">
+                    <a href="/login" class="btn-admin" title="Masuk ke Panel Admin ReFood">
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+                            <polyline points="10 17 15 12 10 7"></polyline>
+                            <line x1="15" y1="12" x2="3" y2="12"></line>
+                        </svg>
+                        <span>Masuk Admin</span>
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <!-- Hero Section -->
+            <section class="hero-section" id="beranda">
+                <div class="container hero-grid">
+                    <div class="hero-content">
+                        <div class="hero-badge">
+                            <span class="pulse-dot"></span>
+                            <span>Surplus Makanan Berkualitas Hari Ini</span>
+                        </div>
+
+                        <h2 class="hero-title">
+                            Selamatkan Makanan Lezat, <span class="highlight-green">Diskon Hingga 50%</span> Setiap
+                            Hari!
+                        </h2>
+
+                        <p class="hero-desc">
+                            Bantu kafe, bakery, dan restoran favoritmu mengurangi sampah makanan. Nikmati hidangan segar
+                            berkualitas tinggi dengan harga ramah kantong.
+                        </p>
+
+                        <div class="hero-cta-group">
+                            <a href="#makanan" class="btn-primary">
+                                <span>Jelajahi Makanan Hari Ini</span>
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.4"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                                    <polyline points="12 5 19 12 12 19"></polyline>
+                                </svg>
+                            </a>
+                            <a href="#cara-kerja" class="btn-secondary">
+                                <span>Pelajari Cara Kerja</span>
+                            </a>
+                        </div>
+
+                        <div class="hero-trust">
+                            <div class="trust-item">
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                                </svg>
+                                <span>100% Layak & Higienis</span>
+                            </div>
+                            <div class="trust-item">
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                    <line x1="1" y1="10" x2="23" y2="10"></line>
+                                </svg>
+                                <span>Payment Gateway Terpadu</span>
+                            </div>
+                            <div class="trust-item">
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                                </svg>
+                                <span>Mitra Terverifikasi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-media">
+                        <div class="hero-card-banner">
+                            <img src="./assets/food-box.jpg" alt="ReFood Box" />
+                            <div class="floating-badge-top">
+                                <svg
+                                    width="14"
+                                    height="14"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.5"
+                                >
+                                    <circle cx="12" cy="12" r="10"></circle>
+                                    <polyline points="12 6 12 12 16 14"></polyline>
+                                </svg>
+                                <span>Ambil Sebelum Toko Tutup</span>
+                            </div>
+                        </div>
+                        <div class="floating-stat-card">
+                            <div class="floating-icon">
+                                <svg
+                                    width="22"
+                                    height="22"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2.2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                                </svg>
+                            </div>
+                            <div class="floating-text">
+                                <div class="stat-val">2.850+ Porsi</div>
+                                <div class="stat-lbl">Makanan terselamatkan bulan ini</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            </section>
 
-                <h1 class="left-title">Setiap Porsi Berarti: Bantu Kurangi Sampah Makanan Bersama ReFood!</h1>
-                
-                <div class="image-placeholder">
-                    <img src="./assets/food-box.jpg" alt="Food Box" class="food-image">
+            <!-- Impact Section -->
+            <section class="impact-section" id="dampak">
+                <div class="container">
+                    <div class="impact-grid">
+                        <div class="impact-item">
+                            <div class="impact-num" id="valSaved">2.850+</div>
+                            <div class="impact-lbl">Porsi Makanan Diselamatkan</div>
+                        </div>
+                        <div class="impact-item">
+                            <div class="impact-num">Rp 48 Juta+</div>
+                            <div class="impact-lbl">Penghematan Pengguna</div>
+                        </div>
+                        <div class="impact-item">
+                            <div class="impact-num">174+</div>
+                            <div class="impact-lbl">Mitra Toko Terverifikasi</div>
+                        </div>
+                        <div class="impact-item">
+                            <div class="impact-num">3,4 Ton</div>
+                            <div class="impact-lbl">Potensi Jejak CO₂ Dicegah</div>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Right Side (White) -->
-            <div class="card-right">
-                <div class="right-content">
-                    <h2 class="right-title">Masuk ke Akun Anda</h2>
-                    <p class="right-subtitle">Masuk ke akun Anda dan temukan makanan bernilai tinggi yang siap diselamatkan.</p>
-                    
-                    <form id="loginForm" class="login-form">
-                        <div class="form-group">
-                            <label for="username">Username/Email</label>
-                            <div class="input-wrapper">
-                                <span class="input-icon">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                </span>
-                                <input type="text" id="username" name="username" placeholder="contoh@gmail.com" required>
+            <!-- Foods Section (Main Feature) -->
+            <section class="foods-section" id="makanan">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">PILIHAN HARI INI</span>
+                        <h2 class="section-title">Makanan Surplus yang Siap Kamu Selamatkan</h2>
+                        <p class="section-subtitle">
+                            Pesan langsung tanpa perlu login. Pembayaran terintegrasi via Duitku Payment Gateway (POP /
+                            QRIS / Virtual Account).
+                        </p>
+                    </div>
+
+                    <!-- Category Filter -->
+                    <div class="filter-tabs" id="categoryFilter">
+                        <button class="filter-btn active" data-category="all">Semua Kategori</button>
+                        <button class="filter-btn" data-category="Bakery">Bakery & Roti</button>
+                        <button class="filter-btn" data-category="Makanan Berat">Makanan Berat</button>
+                        <button class="filter-btn" data-category="Minuman & Pastry">Minuman & Pastry</button>
+                        <button class="filter-btn" data-category="Segar">Buah & Sayur</button>
+                        <button class="filter-btn" data-category="Dessert">Dessert</button>
+                    </div>
+
+                    <!-- Food Cards Grid -->
+                    <div class="foods-grid" id="foodsContainer">
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: var(--text-muted)">
+                            Memuat daftar makanan surplus...
+                        </div>
+                    </div>
+
+                    <!-- Gateway Notice Banner -->
+                    <div class="gateway-banner">
+                        <div class="gateway-banner-text">
+                            <div class="gateway-banner-icon">💳</div>
+                            <div>
+                                <h3>Simulasi & Integrasi Payment Gateway Duitku</h3>
+                                <p>
+                                    Mendukung metode checkout resmi: Duitku POP (Redirect) serta V2 Direct QRIS dan
+                                    Virtual Account (BCA, Mandiri, BNI).
+                                </p>
+                            </div>
+                        </div>
+                        <div class="gateway-badges">
+                            <span class="gw-pill">QRIS ShopeePay / DANA</span>
+                            <span class="gw-pill">BCA VA</span>
+                            <span class="gw-pill">Mandiri VA</span>
+                            <span class="gw-pill">BNI VA</span>
+                            <span class="gw-pill">Auto Polling Status</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works Section -->
+            <section class="how-section" id="cara-kerja">
+                <div class="container">
+                    <div class="section-header">
+                        <span class="section-tag">CARA KERJA</span>
+                        <h2 class="section-title">Mudah Selamatkan Makanan dalam 3 Langkah</h2>
+                        <p class="section-subtitle">Proses cepat tanpa antri dan langsung nikmati di toko mitra.</p>
+                    </div>
+
+                    <div class="steps-grid">
+                        <div class="step-card">
+                            <div class="step-badge">1</div>
+                            <h3 class="step-title">Pilih Makanan Surplus</h3>
+                            <p class="step-desc">
+                                Cari paket makanan yang masih segar dan layak dari toko mitra di sekitarmu dengan harga
+                                diskon hingga 50%.
+                            </p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-badge">2</div>
+                            <h3 class="step-title">Bayar Online Instan</h3>
+                            <p class="step-desc">
+                                Tanpa perlu mendaftar akun! Bayar langsung lewat gateway Duitku via QRIS nasional atau
+                                Virtual Account bank pilihan.
+                            </p>
+                        </div>
+
+                        <div class="step-card">
+                            <div class="step-badge">3</div>
+                            <h3 class="step-title">Tunjukkan Bukti & Ambil</h3>
+                            <p class="step-desc">
+                                Bawa halaman status pembayaran ke toko mitra pada jam ambil yang ditentukan. Praktis dan
+                                ramah lingkungan!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Checkout Modal -->
+        <div class="checkout-modal-backdrop" id="checkoutModal">
+            <div class="checkout-modal-box">
+                <div class="modal-head">
+                    <h3>Beli & Selamatkan Makanan</h3>
+                    <button class="modal-close-btn" id="modalCloseBtn" aria-label="Tutup Modal">&times;</button>
+                </div>
+
+                <form id="checkoutForm">
+                    <div class="modal-scroll-content">
+                        <div class="checkout-error" id="checkoutError"></div>
+
+                        <!-- Selected Food Summary -->
+                        <div class="modal-order-summary">
+                            <img
+                                src="./assets/food-box.jpg"
+                                alt="Food Thumbnail"
+                                class="modal-summary-thumb"
+                                id="summaryThumb"
+                            />
+                            <div class="modal-summary-info">
+                                <div class="modal-summary-store" id="summaryStore">Rotikita Bakery</div>
+                                <div class="modal-summary-title" id="summaryTitle">Surplus Roti Artisan</div>
+                                <div class="modal-summary-price" id="summaryPrice">Rp 25.000 / porsi</div>
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="password">Kata Sandi</label>
-                            <div class="input-wrapper">
-                                <span class="input-icon">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                                </span>
-                                <input type="password" id="password" name="password" placeholder="••••••••" required>
-                                <span class="input-icon-right" id="togglePassword">
-                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                </span>
+                        <input type="hidden" id="checkoutFoodId" name="food_id" />
+
+                        <!-- Qty Selector -->
+                        <div class="form-field">
+                            <label for="checkoutQty">Jumlah Porsi</label>
+                            <select id="checkoutQty" name="qty">
+                                <option value="1">1 Porsi</option>
+                                <option value="2">2 Porsi</option>
+                                <option value="3">3 Porsi</option>
+                                <option value="4">4 Porsi</option>
+                                <option value="5">5 Porsi</option>
+                            </select>
+                        </div>
+
+                        <!-- Customer Info (No login needed!) -->
+                        <div class="form-field">
+                            <label for="customerName">Nama Lengkap Pemesan</label>
+                            <input
+                                type="text"
+                                id="customerName"
+                                name="customer_name"
+                                placeholder="Contoh: Fawwaz"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-row-2">
+                            <div class="form-field">
+                                <label for="customerEmail">Email</label>
+                                <input
+                                    type="email"
+                                    id="customerEmail"
+                                    name="customer_email"
+                                    placeholder="contoh@gmail.com"
+                                    required
+                                />
+                            </div>
+                            <div class="form-field">
+                                <label for="customerPhone">No. WhatsApp</label>
+                                <input
+                                    type="tel"
+                                    id="customerPhone"
+                                    name="customer_phone"
+                                    placeholder="081234567890"
+                                    required
+                                />
                             </div>
                         </div>
 
-                        <div class="forgot-password">
-                            <a href="#">Lupa Kata Sandi?</a>
+                        <!-- Payment Method Selector -->
+                        <div class="form-field">
+                            <label>Metode Pembayaran (Duitku Gateway)</label>
+                            <div class="method-grid">
+                                <label class="method-option selected">
+                                    <input type="radio" name="payment_method" value="pop" checked />
+                                    <div class="method-header">
+                                        <span>💳</span>
+                                        <span>Duitku POP</span>
+                                    </div>
+                                    <div class="method-desc">Halaman resmi Duitku (Semua Metode)</div>
+                                </label>
+
+                                <label class="method-option">
+                                    <input type="radio" name="payment_method" value="qris" />
+                                    <div class="method-header">
+                                        <span>📱</span>
+                                        <span>QRIS Direct</span>
+                                    </div>
+                                    <div class="method-desc">Scan ShopeePay / DANA / BCA</div>
+                                </label>
+
+                                <label class="method-option">
+                                    <input type="radio" name="payment_method" value="va_bca" />
+                                    <div class="method-header">
+                                        <span>🏦</span>
+                                        <span>BCA VA</span>
+                                    </div>
+                                    <div class="method-desc">Virtual Account BCA Otomatis</div>
+                                </label>
+
+                                <label class="method-option">
+                                    <input type="radio" name="payment_method" value="va_mandiri" />
+                                    <div class="method-header">
+                                        <span>🏦</span>
+                                        <span>Mandiri VA</span>
+                                    </div>
+                                    <div class="method-desc">Virtual Account Mandiri</div>
+                                </label>
+
+                                <label class="method-option">
+                                    <input type="radio" name="payment_method" value="va_bni" />
+                                    <div class="method-header">
+                                        <span>🏦</span>
+                                        <span>BNI VA</span>
+                                    </div>
+                                    <div class="method-desc">Virtual Account BNI</div>
+                                </label>
+                            </div>
                         </div>
 
-                        <div id="errorMessage" class="error-message" style="display: none;"></div>
-                        <div id="successMessage" class="success-message" style="display: none;"></div>
+                        <!-- Live Total -->
+                        <div class="modal-total-box">
+                            <span class="total-label">Total Pembayaran</span>
+                            <span class="total-value" id="modalTotalValue">Rp 25.000</span>
+                        </div>
+                    </div>
 
-                        <button type="submit" class="submit-btn" id="submitBtn">
-                            <span>Masuk Sekarang</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    <div class="modal-foot">
+                        <button type="button" class="btn-checkout-cancel" id="modalCancelBtn">Batal</button>
+                        <button type="submit" class="btn-checkout-submit" id="modalSubmitBtn">
+                            <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2.2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+                                <line x1="1" y1="10" x2="23" y2="10"></line>
+                            </svg>
+                            <span>Bayar Sekarang</span>
                         </button>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <a href="#">Syarat & Ketentuan</a>
-        <a href="#">Kebijakan Privasi</a>
-    </footer>
+        <!-- Footer -->
+        <footer class="landing-footer">
+            <div class="container">
+                <div class="footer-grid">
+                    <div class="footer-brand">
+                        <h4>ReFood</h4>
+                        <p>
+                            Gerakan penyelamatan makanan surplus berlebih untuk mengurangi pemborosan dan menciptakan
+                            dampak positif bagi sesama dan lingkungan.
+                        </p>
+                    </div>
 
-    <script src="./app.js"></script>
-</body>
+                    <div class="footer-col">
+                        <h5>Navigasi</h5>
+                        <ul>
+                            <li><a href="#beranda">Beranda</a></li>
+                            <li><a href="#makanan">Pilihan Makanan</a></li>
+                            <li><a href="#cara-kerja">Cara Kerja</a></li>
+                            <li><a href="#dampak">Dampak Sosial</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h5>Mitra & Admin</h5>
+                        <ul>
+                            <li><a href="/login">Portal Admin</a></li>
+                            <li><a href="/login">Daftar Toko Mitra</a></li>
+                            <li><a href="#cara-kerja">Panduan Pembayaran</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col">
+                        <h5>Payment Partner</h5>
+                        <p style="font-size: 12px; color: #9ca3af; margin-bottom: 8px">
+                            Transaksi diproses secara aman melalui Sandbox Payment Gateway Duitku.
+                        </p>
+                        <div style="font-size: 11px; color: #6b7280; font-family: monospace">
+                            Status: Duitku Gateway Ready
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <div>&copy; 2026 ReFood Platform. Don't waste it, ReFood it!</div>
+                    <div>Simulasi Payment Gateway Duitku (Golang)</div>
+                </div>
+            </div>
+        </footer>
+
+        <script src="./landing.js"></script>
+    </body>
 </html>

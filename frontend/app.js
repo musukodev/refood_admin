@@ -20,7 +20,7 @@ class RefoodSidebar extends HTMLElement {
         const linkKategori = isFileProtocol ? './kategori.html' : '/kategori';
         const linkPelaporan = isFileProtocol ? './laporan.html' : '/laporan';
         const linkPengaturan = isFileProtocol ? './akun.html' : '/akun';
-        const linkLogout = isFileProtocol ? './index.html' : '/';
+        const linkLogout = isFileProtocol ? './login.html' : '/login';
 
         this.innerHTML = `
             <div class="sidebar-backdrop" id="sidebarBackdrop" onclick="toggleRefoodSidebar(false)"></div>
@@ -934,7 +934,7 @@ function confirmLogout() {
     // Hapus token login, lalu kembali ke halaman login
     localStorage.removeItem('refood_token');
     // TODO: panggil API logout di sini jika backend menyediakannya
-    window.location.href = window.REFOOD_LOGOUT_URL || '/';
+    window.location.href = window.REFOOD_LOGOUT_URL || '/login';
 }
 
 document.addEventListener('keydown', (e) => {
