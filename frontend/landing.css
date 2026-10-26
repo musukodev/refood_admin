@@ -983,24 +983,45 @@ button, input, select {
 }
 
 /* Method Selector */
+.method-section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin: 14px 0 8px;
+}
+
 .method-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
-    margin-top: 6px;
+}
+
+@media (max-width: 540px) {
+    .method-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 .method-option {
     position: relative;
     border: 1.5px solid var(--border-color);
     border-radius: var(--radius-md);
-    padding: 12px;
+    padding: 10px 12px;
     cursor: pointer;
     transition: var(--transition);
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     background: #ffffff;
+    user-select: none;
+}
+
+.method-option.full-width {
+    margin-bottom: 4px;
+    padding: 12px 14px;
 }
 
 .method-option:hover {
@@ -1008,32 +1029,107 @@ button, input, select {
     background: var(--primary-green-light);
 }
 
-.method-option input {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    accent-color: var(--primary-green);
-}
-
 .method-option.selected {
     border-color: var(--primary-green);
     background: var(--primary-green-light);
-    box-shadow: 0 0 0 2px rgba(56, 110, 85, 0.2);
+    box-shadow: 0 0 0 2px rgba(56, 110, 85, 0.18);
 }
 
-.method-header {
-    font-size: 13px;
-    font-weight: 800;
-    color: var(--text-dark);
+.method-native-radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    margin: 0;
+}
+
+.method-logo-box {
+    width: 44px;
+    height: 32px;
+    background: #ffffff;
+    border: 1px solid rgba(229, 231, 235, 0.9);
+    border-radius: 6px;
     display: flex;
     align-items: center;
-    gap: 6px;
-    margin-bottom: 4px;
+    justify-content: center;
+    padding: 3px 5px;
+    flex-shrink: 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.method-logo-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.method-text {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.method-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.method-title {
+    font-size: 12px;
+    font-weight: 800;
+    color: var(--text-dark);
+    line-height: 1.25;
+}
+
+.method-badge-pill {
+    font-size: 10px;
+    font-weight: 700;
+    color: #2563EB;
+    background: #EFF6FF;
+    border: 1px solid #DBEAFE;
+    padding: 2px 7px;
+    border-radius: var(--radius-full);
 }
 
 .method-desc {
     font-size: 11px;
     color: var(--text-muted);
+    line-height: 1.3;
+}
+
+.method-radio-indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    border: 2px solid #CBD5E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    background: #ffffff;
+    transition: all 0.2s ease;
+}
+
+.method-option.selected .method-radio-indicator {
+    border-color: var(--primary-green);
+}
+
+.radio-inner-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--primary-green);
+    transform: scale(0);
+    transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.method-option.selected .radio-inner-dot {
+    transform: scale(1);
 }
 
 /* Total Box */

@@ -214,9 +214,20 @@ func (g *Gateway) SyncStatus(ctx context.Context, order *Order) error {
 	case "00":
 		order.Status = StatusSuccess
 	case "01":
+		// Duitku: "01" adalah "PROCESS" (sedang diproses / menunggu pembayaran)
+		order.Status = StatusPending
+	case "02":
+		// Duitku: "02" adalah "FAILED" / "EXPIRED" / "CANCELED"
 		order.Status = StatusFailed
 	default:
-		if order.Status == "" {
+		msg := strings.ToUpper(res.StatusMessage)
+		if strings.Contains(msg, "SUCCESS") {
+			order.Status = StatusSuccess
+		} else if strings.Contains(msg, "PROCESS") || strings.Contains(msg, "PENDING") {
+			order.Status = StatusPending
+		} else if strings.Contains(msg, "FAIL") || strings.Contains(msg, "EXPIRE") || strings.Contains(msg, "CANCEL") {
+			order.Status = StatusFailed
+		} else if order.Status == "" {
 			order.Status = StatusPending
 		}
 	}

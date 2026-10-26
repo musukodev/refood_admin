@@ -55,7 +55,12 @@ func (h *Handler) HandleCheckout(c *gin.Context) {
 	req.CustomerName = strings.TrimSpace(req.CustomerName)
 	req.CustomerEmail = strings.TrimSpace(req.CustomerEmail)
 	req.CustomerPhone = strings.TrimSpace(req.CustomerPhone)
-	req.PaymentMethod = strings.ToLower(strings.TrimSpace(req.PaymentMethod))
+	rawMethod := strings.TrimSpace(req.PaymentMethod)
+	if strings.EqualFold(rawMethod, "pop") || rawMethod == "" {
+		req.PaymentMethod = "pop"
+	} else {
+		req.PaymentMethod = rawMethod
+	}
 
 	if err := validateCheckout(req); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -140,7 +145,7 @@ func (h *Handler) HandleStatus(c *gin.Context) {
 	}
 
 	warning := ""
-	if order.Status == StatusPending && !order.IsSimulation {
+	if order.Status != StatusSuccess && !order.IsSimulation {
 		ctx, cancel := context.WithTimeout(c.Request.Context(), 10*time.Second)
 		defer cancel()
 
@@ -307,16 +312,26 @@ func (h *Handler) HandlePaymentMethods(c *gin.Context) {
 }
 
 func toDuitkuMethod(method string) (common.PaymentMethod, bool) {
-	switch method {
-	case "qris":
+	upper := strings.ToUpper(strings.TrimSpace(method))
+	switch upper {
+	// Alias fallback
+	case "QRIS":
 		return common.SPAYQR, true
-	case "va_bca":
+	case "VA_BCA":
 		return common.BCAVA, true
-	case "va_mandiri":
+	case "VA_MANDIRI":
 		return common.MANDIRIVA, true
-	case "va_bni":
+	case "VA_BNI":
 		return common.BNIVA, true
+	case "VA_BRI":
+		return common.PaymentMethod("BR"), true
+	// Duitku official 2-letter channel codes
+	case "SP", "DQ", "SQ", "BC", "M2", "I1", "BR", "BT", "B1", "A1", "AG", "S1", "NC", "BV", "OV", "DA", "IR", "VC", "VA":
+		return common.PaymentMethod(upper), true
 	default:
+		if len(upper) == 2 {
+			return common.PaymentMethod(upper), true
+		}
 		return "", false
 	}
 }

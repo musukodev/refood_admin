@@ -141,12 +141,30 @@ function setupModalEvents() {
 
     // Visual radio selection
     const methodOptions = document.querySelectorAll('.method-option');
+    const methodRadios = document.querySelectorAll('input[name="payment_method"]');
+
+    function syncSelectedMethod() {
+        methodOptions.forEach(opt => {
+            const radio = opt.querySelector('input[name="payment_method"]');
+            if (radio && radio.checked) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
+
+    methodRadios.forEach(radio => {
+        radio.addEventListener('change', syncSelectedMethod);
+    });
+
     methodOptions.forEach(opt => {
         opt.addEventListener('click', () => {
-            methodOptions.forEach(o => o.classList.remove('selected'));
-            opt.classList.add('selected');
-            const radio = opt.querySelector('input[type="radio"]');
-            if (radio) radio.checked = true;
+            const radio = opt.querySelector('input[name="payment_method"]');
+            if (radio && !radio.checked) {
+                radio.checked = true;
+                syncSelectedMethod();
+            }
         });
     });
 
@@ -157,6 +175,20 @@ function setupModalEvents() {
 function openCheckoutModal(foodId) {
     selectedFood = allFoods.find(f => f.id === foodId);
     if (!selectedFood) return;
+
+    // Reset payment method selection to POP by default
+    const popRadio = document.querySelector('input[name="payment_method"][value="pop"]');
+    if (popRadio) {
+        popRadio.checked = true;
+        document.querySelectorAll('.method-option').forEach(opt => {
+            const r = opt.querySelector('input[name="payment_method"]');
+            if (r && r.checked) {
+                opt.classList.add('selected');
+            } else {
+                opt.classList.remove('selected');
+            }
+        });
+    }
 
     document.getElementById('checkoutFoodId').value = selectedFood.id;
     document.getElementById('summaryTitle').textContent = selectedFood.name;

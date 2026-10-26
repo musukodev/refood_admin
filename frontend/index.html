@@ -389,51 +389,100 @@
 
                         <!-- Payment Method Selector -->
                         <div class="form-field">
-                            <label>Metode Pembayaran (Duitku Gateway)</label>
+                            <label>Metode Pembayaran (Duitku Payment Gateway)</label>
+
+                            <!-- Duitku POP Option (All-in-one checkout) -->
+                            <label class="method-option full-width selected">
+                                <input type="radio" name="payment_method" value="pop" checked class="method-native-radio" />
+                                <div class="method-logo-box">
+                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                                        <line x1="2" y1="10" x2="22" y2="10"></line>
+                                    </svg>
+                                </div>
+                                <div class="method-text">
+                                    <div class="method-title-row">
+                                        <span class="method-title">Duitku POP (Invoice Resmi)</span>
+                                        <span class="method-badge-pill">Semua Metode</span>
+                                    </div>
+                                    <span class="method-desc">Halaman resmi Duitku: semua Bank, QRIS, E-Wallet, Paylater & Kartu Kredit</span>
+                                </div>
+                                <div class="method-radio-indicator">
+                                    <span class="radio-inner-dot"></span>
+                                </div>
+                            </label>
+
+                            <div class="method-section-title">Atau Pilih Channel Pembayaran Langsung:</div>
+
                             <div class="method-grid">
-                                <label class="method-option selected">
-                                    <input type="radio" name="payment_method" value="pop" checked />
-                                    <div class="method-header">
-                                        <span>💳</span>
-                                        <span>Duitku POP</span>
+                                <label class="method-option">
+                                    <input type="radio" name="payment_method" value="SP" class="method-native-radio" />
+                                    <div class="method-logo-box">
+                                        <img src="https://images.duitku.com/hotlink-ok/SHOPEEPAY.PNG" alt="QRIS" class="method-logo-img" />
                                     </div>
-                                    <div class="method-desc">Halaman resmi Duitku (Semua Metode)</div>
+                                    <div class="method-text">
+                                        <span class="method-title">QRIS Standar</span>
+                                        <span class="method-desc">ShopeePay, BCA, DANA, GoPay</span>
+                                    </div>
+                                    <div class="method-radio-indicator">
+                                        <span class="radio-inner-dot"></span>
+                                    </div>
                                 </label>
 
                                 <label class="method-option">
-                                    <input type="radio" name="payment_method" value="qris" />
-                                    <div class="method-header">
-                                        <span>📱</span>
-                                        <span>QRIS Direct</span>
+                                    <input type="radio" name="payment_method" value="BC" class="method-native-radio" />
+                                    <div class="method-logo-box">
+                                        <img src="https://images.duitku.com/hotlink-ok/BCA.SVG" alt="BCA" class="method-logo-img" />
                                     </div>
-                                    <div class="method-desc">Scan ShopeePay / DANA / BCA</div>
+                                    <div class="method-text">
+                                        <span class="method-title">BCA Virtual Account</span>
+                                        <span class="method-desc">Transfer Otomatis & Real-time</span>
+                                    </div>
+                                    <div class="method-radio-indicator">
+                                        <span class="radio-inner-dot"></span>
+                                    </div>
                                 </label>
 
                                 <label class="method-option">
-                                    <input type="radio" name="payment_method" value="va_bca" />
-                                    <div class="method-header">
-                                        <span>🏦</span>
-                                        <span>BCA VA</span>
+                                    <input type="radio" name="payment_method" value="M2" class="method-native-radio" />
+                                    <div class="method-logo-box">
+                                        <img src="https://images.duitku.com/hotlink-ok/MV.PNG" alt="Mandiri" class="method-logo-img" />
                                     </div>
-                                    <div class="method-desc">Virtual Account BCA Otomatis</div>
+                                    <div class="method-text">
+                                        <span class="method-title">Mandiri VA</span>
+                                        <span class="method-desc">Livin' by Mandiri & ATM</span>
+                                    </div>
+                                    <div class="method-radio-indicator">
+                                        <span class="radio-inner-dot"></span>
+                                    </div>
                                 </label>
 
                                 <label class="method-option">
-                                    <input type="radio" name="payment_method" value="va_mandiri" />
-                                    <div class="method-header">
-                                        <span>🏦</span>
-                                        <span>Mandiri VA</span>
+                                    <input type="radio" name="payment_method" value="I1" class="method-native-radio" />
+                                    <div class="method-logo-box">
+                                        <img src="https://images.duitku.com/hotlink-ok/I1.PNG" alt="BNI" class="method-logo-img" />
                                     </div>
-                                    <div class="method-desc">Virtual Account Mandiri</div>
+                                    <div class="method-text">
+                                        <span class="method-title">BNI Virtual Account</span>
+                                        <span class="method-desc">BNI Mobile & ATM BNI</span>
+                                    </div>
+                                    <div class="method-radio-indicator">
+                                        <span class="radio-inner-dot"></span>
+                                    </div>
                                 </label>
 
                                 <label class="method-option">
-                                    <input type="radio" name="payment_method" value="va_bni" />
-                                    <div class="method-header">
-                                        <span>🏦</span>
-                                        <span>BNI VA</span>
+                                    <input type="radio" name="payment_method" value="BR" class="method-native-radio" />
+                                    <div class="method-logo-box">
+                                        <img src="https://images.duitku.com/hotlink-ok/BR.PNG" alt="BRI" class="method-logo-img" />
                                     </div>
-                                    <div class="method-desc">Virtual Account BNI</div>
+                                    <div class="method-text">
+                                        <span class="method-title">BRI Virtual Account</span>
+                                        <span class="method-desc">BRImo & ATM BRI</span>
+                                    </div>
+                                    <div class="method-radio-indicator">
+                                        <span class="radio-inner-dot"></span>
+                                    </div>
                                 </label>
                             </div>
                         </div>

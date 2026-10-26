@@ -98,12 +98,20 @@ function renderOrder(order, simulationEnabled) {
         return;
     }
 
-    if (order.status === 'FAILED') {
+    if (order.status === 'FAILED' || order.status === 'EXPIRED') {
         badge.className = 'status-badge failed';
-        badgeText.textContent = 'PEMBAYARAN GAGAL';
+        badgeText.textContent = order.status === 'EXPIRED' ? 'KEDALUWARSA' : 'PEMBAYARAN GAGAL';
         badgeDot.style.display = 'none';
         pollIndicator.style.display = 'none';
         if (pollInterval) clearInterval(pollInterval);
+        successBox.style.display = 'none';
+        contentArea.style.display = 'block';
+        contentArea.innerHTML = `
+            <div style="padding: 24px 16px; text-align: center; background: #FEF2F2; border: 1px solid #FCA5A5; border-radius: 16px;">
+                <p style="font-size: 14px; font-weight: 700; color: #991B1B; margin-bottom: 4px;">Transaksi Kedaluwarsa atau Gagal</p>
+                <p style="font-size: 12px; color: #B91C1C;">Batas waktu pembayaran telah habis atau dibatalkan. Silakan buat pesanan baru dari menu utama.</p>
+            </div>
+        `;
         return;
     }
 
@@ -118,7 +126,11 @@ function renderOrder(order, simulationEnabled) {
 }
 
 function renderPaymentInstructions(order, container) {
-    if (order.qr_string || order.qr_image || order.method === 'qris') {
+    const methodLower = (order.method || '').toLowerCase();
+    const qrisCodes = ['qris', 'sp', 'dq', 'sq'];
+    const isQRIS = Boolean(order.qr_string || order.qr_image || qrisCodes.includes(methodLower));
+
+    if (isQRIS) {
         const qrSrc = order.qr_image || (order.qr_string ? `https://api.qrserver.com/v1/create-qr-code/?size=260x260&data=${encodeURIComponent(order.qr_string)}` : '');
         container.innerHTML = `
             <div class="qris-display-box">
@@ -141,12 +153,15 @@ function renderPaymentInstructions(order, container) {
         return;
     }
 
-    if (order.va_number || order.method.startsWith('va_')) {
+    const vaCodes = ['bc', 'm2', 'i1', 'br', 'bt', 'b1', 'a1', 'ag', 's1', 'nc', 'bv', 'va'];
+    const isVA = Boolean(order.va_number || methodLower.startsWith('va_') || vaCodes.includes(methodLower));
+
+    if (isVA) {
         const vaNum = order.va_number || 'Sedang memuat...';
         container.innerHTML = `
             <div class="va-display-box">
                 <span style="display: inline-block; padding: 4px 12px; background: rgba(255, 255, 255, 0.15); color: #FDE68A; border-radius: 9999px; font-size: 11px; font-weight: 800;">
-                    🏦 VIRTUAL ACCOUNT ${formatMethodName(order.method).toUpperCase()}
+                    🏦 ${formatMethodName(order.method).toUpperCase()}
                 </span>
                 <p style="font-size: 12px; color: #94A3B8; margin-top: 8px;">Transfer ke nomor Virtual Account berikut:</p>
 
@@ -194,12 +209,29 @@ function renderPaymentInstructions(order, container) {
 function formatMethodName(method) {
     if (!method) return 'Duitku';
     const m = method.toLowerCase();
-    if (m === 'pop') return 'Duitku POP (All-in-One)';
-    if (m === 'qris') return 'QRIS (ShopeePay / DANA)';
-    if (m === 'va_bca') return 'BCA Virtual Account';
-    if (m === 'va_mandiri') return 'Mandiri Virtual Account';
-    if (m === 'va_bni') return 'BNI Virtual Account';
-    return method.toUpperCase();
+    const map = {
+        pop: 'Duitku POP (Semua Metode)',
+        sp: 'ShopeePay QRIS',
+        dq: 'DANA QRIS',
+        sq: 'Nusapay QRIS',
+        qris: 'QRIS Standar Nasional',
+        bc: 'BCA Virtual Account',
+        va_bca: 'BCA Virtual Account',
+        m2: 'Mandiri Virtual Account',
+        va_mandiri: 'Mandiri Virtual Account',
+        i1: 'BNI Virtual Account',
+        va_bni: 'BNI Virtual Account',
+        br: 'BRI Virtual Account',
+        va_bri: 'BRI Virtual Account',
+        bt: 'Permata Virtual Account',
+        b1: 'CIMB Niaga Virtual Account',
+        bv: 'BSI Virtual Account',
+        ov: 'OVO',
+        da: 'DANA',
+        ir: 'Indomaret',
+        vc: 'Kartu Kredit / Debit'
+    };
+    return map[m] || method.toUpperCase();
 }
 
 function copyVA(text) {
