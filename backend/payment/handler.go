@@ -15,8 +15,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/idoyudha/duitku-go/common"
 
-	"refood-backend/catalog"
-	"refood-backend/config"
+	"refood-backend/backend/catalog"
+	"refood-backend/backend/config"
 )
 
 type CheckoutRequest struct {

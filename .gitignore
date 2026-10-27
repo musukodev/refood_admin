@@ -3,5 +3,7 @@ backend/.env
 *.log
 /tmp/
 app
+backend/app
 main
+backend/main-bin
 refood-backend

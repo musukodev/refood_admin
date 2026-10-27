@@ -24,7 +24,7 @@ import (
 	"github.com/idoyudha/duitku-go/transaction"
 	qrcode "github.com/skip2/go-qrcode"
 
-	"refood-backend/config"
+	"refood-backend/backend/config"
 )
 
 type DirectV2Request struct {
