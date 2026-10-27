@@ -1226,8 +1226,8 @@ button, input, select {
 
 .footer-grid {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1.5fr;
-    gap: 40px;
+    grid-template-columns: 1.6fr 0.8fr 0.8fr 1.8fr;
+    gap: 36px;
     margin-bottom: 40px;
 }
 
@@ -1269,6 +1269,48 @@ button, input, select {
 
 .footer-col a:hover {
     color: #ffffff;
+}
+
+.footer-contact-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: #9CA3AF;
+    line-height: 1.5;
+}
+
+.footer-contact-item svg {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 2px;
+    color: var(--primary-orange);
+}
+
+.footer-contact-item a {
+    color: #9CA3AF;
+    text-decoration: none;
+    transition: var(--transition);
+    word-break: break-word;
+}
+
+.footer-contact-item a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+.footer-payment-badge {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid #1f2937;
 }
 
 .footer-bottom {
