@@ -1,6 +1,7 @@
 package config
 
 import (
+	"fmt"
 	"log"
 	"os"
 	"strconv"
@@ -17,6 +18,13 @@ type Config struct {
 	APIKey           string
 	Environment      common.Environment
 	EnableSimulation bool
+	DBHost           string
+	DBPort           string
+	DBUser           string
+	DBPassword       string
+	DBName           string
+	DBSSLMode        string
+	DatabaseURL      string
 }
 
 func LoadConfig() *Config {
@@ -48,6 +56,14 @@ func LoadConfig() *Config {
 		enableSimulation = true
 	}
 
+	dbHost := getEnv("DB_HOST", "")
+	dbPort := getEnv("DB_PORT", "5432")
+	dbUser := getEnv("DB_USER", "")
+	dbPassword := getEnv("DB_PASSWORD", "")
+	dbName := getEnv("DB_NAME", "")
+	dbSSLMode := getEnv("DB_SSLMODE", "require")
+	databaseURL := getEnv("DATABASE_URL", "")
+
 	cfg := &Config{
 		Port:             port,
 		BaseURL:          baseURL,
@@ -55,6 +71,13 @@ func LoadConfig() *Config {
 		APIKey:           apiKey,
 		Environment:      env,
 		EnableSimulation: enableSimulation,
+		DBHost:           dbHost,
+		DBPort:           dbPort,
+		DBUser:           dbUser,
+		DBPassword:       dbPassword,
+		DBName:           dbName,
+		DBSSLMode:        dbSSLMode,
+		DatabaseURL:      databaseURL,
 	}
 
 	if merchantCode == "D12345" || apiKey == "your_sandbox_api_key_here" {
@@ -66,6 +89,25 @@ func LoadConfig() *Config {
 
 func (c *Config) IsDummy() bool {
 	return c.MerchantCode == "D12345" || c.APIKey == "your_sandbox_api_key_here"
+}
+
+func (c *Config) DSN() string {
+	if c.DBHost != "" {
+		port := c.DBPort
+		if port == "" {
+			port = "5432"
+		}
+		sslmode := c.DBSSLMode
+		if sslmode == "" {
+			sslmode = "require"
+		}
+		return fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=%s",
+			c.DBHost, port, c.DBUser, c.DBPassword, c.DBName, sslmode)
+	}
+	if c.DatabaseURL != "" {
+		return c.DatabaseURL
+	}
+	return ""
 }
 
 func (c *Config) CallbackURL() string {

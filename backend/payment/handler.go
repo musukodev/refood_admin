@@ -30,11 +30,11 @@ type CheckoutRequest struct {
 
 type Handler struct {
 	Cfg     *config.Config
-	Store   *Store
+	Store   OrderStore
 	Gateway *Gateway
 }
 
-func NewHandler(cfg *config.Config, store *Store, gateway *Gateway) *Handler {
+func NewHandler(cfg *config.Config, store OrderStore, gateway *Gateway) *Handler {
 	return &Handler{Cfg: cfg, Store: store, Gateway: gateway}
 }
 

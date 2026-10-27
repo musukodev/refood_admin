@@ -80,7 +80,7 @@ func serveFile(diskPath string, subFS fs.FS, filename string, contentType string
 func main() {
 	cfg := config.LoadConfig()
 
-	paymentStore := payment.NewStore()
+	paymentStore := payment.NewStore(cfg.DSN())
 	paymentGateway := payment.NewGateway(cfg)
 	paymentHandler := payment.NewHandler(cfg, paymentStore, paymentGateway)
 
